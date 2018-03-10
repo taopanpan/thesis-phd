@@ -13,10 +13,20 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+# thesis run
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.log
+*.toc
+*.lot
+*.synctex.gz
+*.lof
 
 # Windows shortcuts
 *.lnk
-Tmp
+./Tmp/
 # =========================
 # Operating System Files
 # =========================

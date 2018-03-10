@@ -434,7 +434,7 @@ FUNCTION {format.url}
 FUNCTION {format.doi}
 { doi empty$
     { "" }
-    { is.doi.in.url
+    { 
         { "" }
         { new.block "\doi{" doi * "}" * }
       if$

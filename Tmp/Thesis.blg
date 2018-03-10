@@ -2,35 +2,28 @@ This is BibTeX, Version 0.99d (TeX Live 2016/W32TeX)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: ./Tmp/Thesis.aux
 The style file: Biblio/gbt7714-unsrt.bst
-Case mismatch error between cite keys He2015spp and he2015spp
----line 227 of file ./Tmp/Thesis.aux
- : \citation{He2015spp
- :                    }
-I'm skipping whatever remains of this command
-is.doi.in.url is an unknown function---line 437 of file Biblio/gbt7714-unsrt.bst
 Database file #1: Biblio/ref.bib
 You're missing a field name---line 43 of file Biblio/ref.bib
  : 
  : %url = {http://link.springer.com/10.1007/978-981-10-3005-5{\_}11},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-"}" immediately follows a field name---line 711 of file Biblio/ref.bib
+"}" immediately follows a field name---line 730 of file Biblio/ref.bib
  : information.pdf:pdf
  :                    },
 I'm skipping whatever remains of this entry
-Repeated entry---line 1091 of file Biblio/ref.bib
+Repeated entry---line 1110 of file Biblio/ref.bib
  : @inproceedings{Jaderberg2015
  :                             ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1107 of file Biblio/ref.bib
+Repeated entry---line 1126 of file Biblio/ref.bib
  : @article{Beyer2015
  :                   ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1530 of file Biblio/ref.bib
+Repeated entry---line 1549 of file Biblio/ref.bib
  : @inproceedings{Mahendran2015
  :                             ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "•"
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--empty year in VanderSchaaf1996a
 Warning--empty year in DBLP:journals/tip/DabovFKE07
@@ -55,45 +48,45 @@ Warning--empty year in DBLP:conf/cvpr/LongSD15
 Warning--empty year in DBLP:journals/pami/DongLHT16
 Warning--empty year in HeZRS15
 Warning--empty booktitle in Deng2009ImageNet
-You've used 116 entries,
+You've used 117 entries,
             3382 wiz_defined-function locations,
-            1631 strings with 35822 characters,
-and the built_in function-call counts, 885945 in all, are:
-= -- 91789
-> -- 92475
-< -- 92018
-+ -- 29408
-- -- 930
-* -- 4555
-:= -- 96262
-add.period$ -- 351
-call.type$ -- 116
-change.case$ -- 546
-chr.to.int$ -- 26841
-cite$ -- 137
-duplicate$ -- 2237
-empty$ -- 6797
-format.name$ -- 2030
-if$ -- 256090
+            1640 strings with 36478 characters,
+and the built_in function-call counts, 908651 in all, are:
+= -- 94141
+> -- 94955
+< -- 94465
++ -- 30171
+- -- 951
+* -- 4627
+:= -- 98680
+add.period$ -- 354
+call.type$ -- 117
+change.case$ -- 551
+chr.to.int$ -- 27556
+cite$ -- 138
+duplicate$ -- 2255
+empty$ -- 6867
+format.name$ -- 2075
+if$ -- 262693
 int.to.chr$ -- 7
-int.to.str$ -- 117
+int.to.str$ -- 118
 missing$ -- 0
-newline$ -- 592
-num.names$ -- 353
-pop$ -- 38686
+newline$ -- 597
+num.names$ -- 356
+pop$ -- 39678
 preamble$ -- 1
-purify$ -- 116
+purify$ -- 117
 quote$ -- 0
-skip$ -- 107688
+skip$ -- 110553
 stack$ -- 0
-substring$ -- 30126
-swap$ -- 138
-text.length$ -- 1152
+substring$ -- 30873
+swap$ -- 139
+text.length$ -- 1175
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1093
+type$ -- 1104
 warning$ -- 21
-while$ -- 1565
+while$ -- 1592
 width$ -- 0
-write$ -- 1708
-(There were 8 error messages)
+write$ -- 1724
+(There were 6 error messages)
