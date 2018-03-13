@@ -27,6 +27,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 ./Tmp/
+ppt
 # =========================
 # Operating System Files
 # =========================

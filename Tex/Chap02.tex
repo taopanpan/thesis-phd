@@ -1,9 +1,151 @@
 \chapter{相关知识}
 \label{chap:basicknowledge}
  
-\section{深度卷积神经网络的组件}
+\section{深度学习方法概述}
+\label{sec:neuralnets}
+本部分的目标是提供我们在本文所调查的医学影像分析论文中发现的深度学习概念，技术和体系结构的正式介绍和定义。
 
+\subsection{学习算法}
+
+机器学习方法通​​常分为监督和无监督学习，在监督式学习中，模型用数据集$\mathcal{D} = \{{\bf x}, y\}^{N}_{n = 1}$ 输入特征${\bf x} $并标注$y$对，其中$y$通常表示一组固定类的实例。在回归任务中，$y$也可以是具有连续值的向量。有监督的训练通常等于找到模型参数$\Theta$，该模型参数最好根据损失函数$L(y，\hat{y})$预测数据。这里$\hat{y}$表示通过将数据点${\bf x}$馈送到表示模型的函数$f({\bf x}; \Theta)$获得的模型的输出。
+
+无监督学习算法处理没有标签的数据，并接受训练以找到模式，例如潜在子空间。传统的无监督学习算法的例子是主成分分析和聚类方法。无监督训练可以在许多不同的损失功能下进行。一个例子是重建损失$L({\bf x}, \hat{{\bf x}})$，其中模型必须学习重建其输入，通常通过较低维或嘈杂的表示。
+
+\subsection{神经网络}
+神经网络是一种学习算法，它构成了大多数深度学习方法的基础。 一个神经网络包含一些激活$a$ 和参数$\Theta = \{\mathcal{W}, \mathcal{B}\}$的神经元或单元，其中$\mathcal{W}$是一组权重 和$\mathcal{B}$一组偏差。 激活表示输入${\bf x}$与神经元和参数的线性组合，接下来是元素方式的非线性$\sigma(\cdot)$，称为传递函数： 
+\begin{equation}
+ a = \sigma({\bf w}^{T}{\bf x} + b).
+\end{equation}
+传统神经网络的典型传递函数是S形和双曲正切函数。 多层感知器（multi-layered perceptronsMLP）是传统神经网络中最着名的一种，具有以下几个转换层：
+ \begin{equation}
+ 	f({\bf x}; \Theta) = \sigma( {\bf W}^{T}\sigma({\bf W}^{T} \ldots \sigma({\bf W}^{T} {\bf x} + b)  ) + b).
+ \end{equation}
+ 这里，${\bf W}$是一个包含列 ${\bf w}_{k}$的矩阵，与输出中的激活$k$相关联。 输入和输出之间的层通常被称为“隐藏”层。 当一个神经网络包含多个隐藏层时，它通常被认为是一个“深层”神经网络，因此称为“深度学习”。
+
+在网络的最后一层，激活通过{\it softmax}函数映射到类$P(y | {\bf x}; \Theta)$上的分布
+\begin{equation}
+ P(y | {\bf x}; \Theta) = \text{softmax}({\bf x}; \Theta) = \frac{e^{{\bf w}_{i}^{T}{\bf x} + b_{i}}}{\sum^{K}_{k = 1} e^{{\bf w}_{k}^{T}{\bf x} + b_{k}}},
+\end{equation}
+其中${\bf w}_{i}$表示通向与类$i$相关联的输出节点的权向量。 图\ref{fig:architectures}中显示了三层MLP的示意图。
+
+随机梯度下降的最大似然是目前最常用的方法，它将参数$\Theta$拟合到数据集 $\mathcal{D}$。 在随机梯度下降中，小批量数据的一小部分用于每个梯度更新，而不是全部数据集。 在实践中优化最大可能性等于最小化负对数似然性：
+
+\begin{equation}
+ \arg \min_{\Theta} - \sum^{N}_{n = 1} \log\big[ P(y_{n}| {\bf x}_{n}; \Theta) \big].
+\end{equation}
+这导致了两类问题的二叉交叉熵损失和多类任务的分类交叉熵。这种方法的缺点是它通常不会直接优化我们感兴趣的数量，例如接收器操作特性（ROC）曲线下的面积或用于分割的常用评估度量（例如Dice系数）。
+
+长期以来，深度神经网络（DNN）被认为难以有效训练。他们只在2006年受到欢迎\citep{Beng07,Hint06,Hint06a}当显示以无监督的方式（预训练）逐层训练DNN，然后监督堆叠网络的微调时，可能会导致表现良好。以这种方式训练的两种流行体系结构是堆叠自动编码器（SAE）和深度置信网络（DBN）。但是，这些技术相当复杂，需要大量工程才能产生令人满意的结果。
+
+目前，最流行的模型是以受监督的方式进行端对端培训，极大地简化了培训过程。最流行的体系结构是卷积神经网络（CNN）和递归神经网络（RNN）。尽管RNN越来越受欢迎，但CNN目前在（医学）图像分析中应用最广泛。以下各节将简要介绍这些方法，从最受欢迎的方法开始，并讨论它们在应用于医疗问题时的差异和潜在的挑战。
+
+\subsection{卷积神经网络 (CNNs)}
+MLP和CNN之间有两个关键的区别。 首先，在CNN中，网络中的权重以网络对图像执行卷积操作的方式共享。 这样，模型不需要为在图像中不同位置出现的同一对象分别检测单独的检测器，从而使网络在输入的平移方面等同。 它还大大减少了需要学习的参数数量（即\权重的数量不再取决于输入图像的大小）。 图中显示了一维CNN的一个例子
+% \ref{fig:architectures}.
+在每一层，输入图像与一组$K$内核进行卷积： $\mathcal{W} = \{ {\bf W}_{1}, {\bf W}_{2}, \ldots, {\bf W}_{K} \}$ 并添加偏差$\mathcal{B} = \{b_{1}, \ldots, b_{K}\}$，每个生成一个新的特征映射${\bf X}_{k}$。 这些特性受到元素智能非线性变换$\sigma(\cdot)$的影响，并且对每个卷积层$l$重复相同的过程：
+
+\begin{equation}
+\label{eq::mapping_cnn}
+ {\bf X}_{k}^{l} = \sigma\big( {\bf W}_{k}^{l -1} \ast {\bf X}^{l -1} + b_{k}^{l-1} \big).
+\end{equation}
+
+CNN和MLP之间的第二个关键区别在于CNN中的池化层的典型结合，其中邻域的像素值使用置换不变函数（通常是最大或平均运算）进行聚合。 这会导致一定量的平移不变性，并再次减少网络中的参数数量。 在网络的卷积流结束时，通常会添加完全连接的层（即规则的神经网络层），其中不再共享权重。 类似于MLP，通过softmax函数提供最后一层中的激活并且使用最大可能性对网络进行训练，从而产生类别分布。
+
+\subsection{深度卷积神经网络的结构}
+鉴于CNN在医学图像分析中的流行，我们详细介绍了广泛使用的模型中最常见的体系结构和体系结构差异。
+
+\subsubsection{General classification architectures}
+
+十年后推出的LeNet\citep{Lecu98}和AlexNet\citep{Kriz12}实质上是非常相似的模型。这两个网络都比较浅，分别由两层和五层卷积层组成，并且在接近输入的层中使用具有较大感受域的内核，以及接近输出的较小内核。 AlexNet确实将整流后的线性单位代替双曲线切线作为激活函数。
+
+2012年以后，新型建筑的探索起飞，在过去的三年中，更倾向于更深的模型。通过堆叠更小的内核，而不是使用具有大接受字段的单层内核，可以用较少的参数来表示类似的函数。这些更深层的体系结构在推理期间通常具有较低的内存占用量，这使得它们能够部署在诸如智能手机的移动计算设备上。\cite{Simo14}是第一个探索更深层次的网络，并在每个层中使用小型，固定大小的内核。通常被称为VGG19或OxfordNet的19层模型赢得了2014年的ImageNet挑战。
+
+在深层网络之上，引入了更复杂的构建模块，可以提高训练过程的效率，并再次减少参数的数量。 \cite{Szeg14}引入了一个名为{\it GoogLeNet}的22层网络，也称为Inception，它使用所谓的初始块\citep{Lin13c}，这个模块取代了公式\eqref{eq::mapping_cnn}与一组不同大小的卷积。类似于小内核的堆叠，这允许用较少的参数来表示类似的功能。 {\it ResNet}体系结构\citep{He15b}赢得了2015年的ImageNet挑战，并由所谓的ResNet块组成。残差块不是学习函数，而是仅学习残差，并因此预先调整每一层中接近身份函数的学习映射。这样，甚至更深的模型可以有效地训练。
+
+自2014年以来，ImageNet基准测试的性能已经饱和，很难评估性能的小幅增长是否真的归因于“更好”和更复杂的架构。这些模型所提供的较低内存占用空间的优势通常对于医疗应用来说并不重要。因此，AlexNet或其他简单模型（如VGG）仍然很受医学数据欢迎，尽管最近的里程碑式研究都使用GoogleNet的一个名为Inception v3\citep{Guls16，Este17，Liu17}的版本。无论这是由于高级体系结构，还是仅仅因为该模型是流行软件包中的默认选择，都难以评估。
+
+\subsubsection{Multi-stream architectures}
+\label{sec:ms_architectures}
+默认的CNN体​​系结构可以很容易地以呈现给输入层的频道的形式容纳多个信息源或输入的表示。这个想法可以进一步采取，渠道可以在网络的任何一点合并。根据不同任务需要不同融合方式的直觉，正在探索{多流}体系结构。这些模型也被称为双通道架构\citep{Kamn16}，在撰写本文时有两个主要应用：（1）多尺度图像分析和（2）2.5D分类;两者都与医学图像处理任务相关。
+
+为了检测异常，上下文往往是一个重要的提示。增加上下文最直接的方法是将更大的补丁提供给网络，但这会显着增加网络的参数和内存需求量。因此，除了高分辨率的本地信息之外，还研究了在缩小的表示中添加上下文的架构。据我们所知，多流多尺度体系结构首先由\cite{Fara13a}探索出来，后者将其用于自然图像中的分割。一些医学应用也成功地使用了这个概念。citep {Kamn16，Moes16，Song15，Yang16}。
+
+由于仍然在自然图像上开发了许多方法，因此将深度学习技术应用于医疗领域的挑战通常在于将现有体系结构适应于例如不同输入格式，例如三维数据。在CNN早期应用于这样的体积数据时，通过将感兴趣体积（VOI）划分为切片，将全部3D卷积和由此产生的大量参数分开，所述切片作为不同的流馈送到网络。 \cite{Pras13}是第一个将这种方法用于膝关节软骨分割的方法。类似地，网络可以以多流方式从3D空间中馈入多个角度的贴片，这已经被各种作者在医学成像\citep{Roth16，Seti16}的情况下应用。这些方法也被称为2.5D分类。 
+
+\subsubsection{Segmentation Architectures}
+\label{sec:segm_arch}
+分割是自然和医学图像分析中的一项常见任务，为了解决这个问题，CNN可以简单地用于分别对图像中的每个像素进行分类，方法是在特定像素周围提取补丁。这种天真的“滑动窗口”方法的缺点是来自相邻像素的输入色块具有巨大的重叠并且多次计算相同的卷积。幸运的是，卷积和点积都是线性算子，因此内积可以写成卷积，反之亦然。通过将完全连接的层重写为卷积，CNN可以输入大于其被训练的图像并生成可能性图，而不是单个像素的输出。最终的“完全卷积网络”（fCNN）然后可以以有效的方式应用于整个输入图像或音量。
+
+但是，由于合并图层，这可能导致输出的分辨率远远低于输入。 'Shift-and-stitch'\citep{Long15}是为防止这种分辨率下降而提出的几种方法之一。 fCNN被应用于输入图像的移位版本。通过将结果拼接在一起，可以获得最终输出的全分辨率版本，减去由于“有效”卷积而丢失的像素。
+
+\cite{Ronn15}将fCNN的想法推进了一步，并提出了U-net架构，包括一个'规则'的fCNN，后面跟着一个上采样部分，其中'up'卷积用于增加图像大小，压缩收缩膨胀路径。虽然这不是第一篇介绍卷积神经网络学习上采样路径的文章（例如〜\cite{Long15}），但作者将它与所谓的跳过连接相结合，以直接连接相反的收缩和扩展卷积层。 \cite{Cice16}为3D数据使用了类似的方法。 \cite{Mill16}提出了U-Net布局的扩展，该布局包含类似ResNet的残余块和骰子丢失层，而不是传统的交叉熵，其直接最小化这种常用的分割误差测量。  
+
+\subsection{Recurrent Neural Networks (RNNs)}
+\label{sec:rnns}
+传统上，RNN是为离散序列分析而开发的。 它们可以看作是MLP的泛化，因为输入和输出的长度都不相同，这使得它们适用于诸如机器翻译这样的任务，其中源语言和目标语言的句子是输入和输出。 在分类设置中，模型学习了类别$P(y | {\bf x}_{1}, {\bf x}_{2}, \ldots, {\bf x}_{T}; \Theta)$给出一个序列${\bf x}_{1}, {\bf x}_{2}, \ldots, {\bf x}_{T}$，而不是一个输入向量${\bf x}$。
+
+普通的RNN在$t$时刻维持一个隐式或隐藏状态${\bf h} $，它是从其输入${\bf x}_{t}$和前一状态${\bf h}_{t-1}$:
+
+\begin{equation}
+ {\bf h}_{t} = \sigma({\bf W}{\bf x}_{t} + {\bf R}{\bf h}_{t - 1} + {\bf b}),
+\end{equation}
+
+其中加权矩阵${\bf W}$和${\bf R}$是随时间共享的。 对于分类，通常会添加一个或多个完全连接的图层，然后添加softmax以将序列映射到类的后面。
  
+\begin{equation}
+ P(y | {\bf x}_{1}, {\bf x}_{2}, \ldots, {\bf x}_{T}; \Theta) = \text{softmax}( {\bf h}_{T}; {\bf W}_{out}, {\bf b}_{out}).
+\end{equation}
+
+由于梯度需要通过时间从输出反向传播，因此RNN具有固有的深度（及时性），因此与常规深层神经网络\citep{Beng94}一样遭受与训练相同的问题。 为此，已经开发了几种专用存储单元，最早和最流行的是长期短期记忆（LSTM）单元\citep{Hoch97}。 门控复发单元\citep{Cho14}是LSTM的最新简化，也是常用的。\\
+
+尽管最初提出了一维输入，但RNN越来越多地应用于图像。 在自然图像中，'pixelRNN'被用作自回归模型，生成模型最终可以生成类似于训练集样本的新图像。 对于医疗应用，它们已被用于分割问题，并且在MRBrainS挑战中具有令人鼓舞的结果\citep{Stol15}。
+
+\subsection{Unsupervised models}
+\subsubsection{Auto-encoders (AEs) and Stacked Auto-encoders (SAEs)}
+AE是简单的网络，通过一个隐藏层${\bf h}$来训练输出层${\bf x}'$上的输入${\bf x}$。 它们由权重矩阵和输入到隐藏状态和${\bf W}_{x, h}$的偏置$b_{x, h}$来控制。${\bf W}_{h, x'}$ 相应的偏差$b_{h, x'}$从隐藏层到重建。 非线性函数用于计算隐藏激活： 
+\begin{equation}
+\label{eq::ae_projection}
+ {\bf h} = \sigma({\bf W}_{x, h} {\bf x} + {\bf b}_{x, h}).
+\end{equation}
+此外，隐藏层$|{\bf h}|$的维度小于$|{\bf x}|$。 这样，数据被投影到表示输入中的主要潜在结构的较低维子空间上。 正则化或稀疏性约束可以用来增强发现过程。 如果隐藏层的大小与输入大小相同，并且不再添加非线性，则模型将简单地学习标识函数。
+
+去噪自动编码器\citep{Vinc10}是另一种防止模型学习微不足道解决方案的解决方案。 这里模型被训练来重构来自噪声损坏版本（通常是盐和胡椒噪声）的输入。 SAE（或深度AE）通过将自动编码器层放置在彼此之上而形成。 在本文中调查的医疗应用中，自动编码器层经常被单独训练（“贪婪”），然后使用监督训练对整个网络进行微调以进行预测。
+
+\subsubsection{Restricted Boltzmann Machines (RBMs) and Deep Belief Networks (DBNs)}
+RBMs\citep{Hint10}是一种马尔可夫随机场（MRF），构成输入层或可见层${\bf x} = (x_{1}, x_{2}, \ldots, x_{N})$和一个带有潜在特征表示的隐藏层${\bf h} = (h_{1}, h_{2}, \ldots, h_{M})$。 节点之间的连接是双向的，因此给定输入向量$\bf x$可以获得潜在特征表示$\bf h$，反之亦然。 因此，RBM是一个生成模型，我们可以从中进行抽样并生成新的数据点。 与物理系统类比，能量函数被定义为输入和隐藏单位的特定状态$({\bf x}, {\bf h})$：
+
+\begin{equation}
+ E({\bf x}, {\bf h}) = {\bf h}^{T}{\bf W}{\bf x} - {\bf c}^{T}{\bf x} - {\bf b}^{T}{\bf h},
+\end{equation}
+与 ${\bf c}$ and ${\bf b}$ 偏差条款。 系统的“状态”的概率通过将能量传递给指数和正态化来定义：
+
+\begin{equation}
+ p({\bf x}, {\bf h}) = \frac{1}{Z} \exp\{ - E({\bf x}, {\bf h}) \}.
+\end{equation}
+计算分区函数 $Z$通常是棘手的。 然而，以${\bf h}$为条件计算${\bf v}$形式的条件推断是可以处理的，并且会产生一个简单的公式：
+
+\begin{equation}
+ P(h_{j} | {\bf x}) = \frac{1}{ 1 + \exp\{ -b_{j} - {\bf W}_{j}{\bf x}\} }.
+\end{equation}
+由于网络是对称的，类似的表达式适用 $P(x_{i} | {\bf h})$.\\
+
+DBNs \citep{Beng07，Hint06a}实质上是AE层被RBM取代的SAE。 再次，以无人监督的方式进行单个层次的训练。 通过向DBN顶层添加线性分类器并执行监督优化来执行最终的微调。
+\subsubsection{Variational Auto-Encoders and Generative Adverserial Networks}
+最近，引入了两种新颖的无监督体系结构：变分自动编码器（VAE）\citep{King13}和生成对抗网络（GAN）\citep{Good14}。 目前还没有同行评议的论文将这些方法应用于医学图像，但在自然图像中的应用是有希望的。 我们将在讨论中详细说明他们的潜力。
+\color{black}
+
+\subsection{Hardware and Software}
+GPU和GPU计算库（CUDA，OpenCL）的广泛应用促成了深度学习急剧上升的主要原因之一。 GPU是高度并行计算引擎，其执行线程数量比中央处理器（CPU）多一个数量级。 使用目前的硬件，深度学习GPU的速度通常比CPU快10到30倍。
+
+除硬件之外，深度学习方法普及的另一推动力是开源软件包的广泛可用性。 这些库提供了神经网络中重要操作（如卷积）的高效GPU实现; 使用户能够以较高的水平实施创意，而不用担心低水平的高效实施。 在撰写本文时，最流行的软件包是（按字母顺序）：
+\begin{itemize}
+ \item {\bf Caffe} \citep{Jia14a}. 提供C ++和Python接口，由加州大学伯克利分校的研究生开发。 
+ \item {\bf Tensorflow} \citep{Abad16}. 提供由Google开发的C ++，Python和接口，供Google研究使用.
+ \item {\bf Theano} \citep{Bast12}. 提供由蒙特利尔MILA实验室开发的Python界面。
+ \item {\bf Torch} \citep{Coll11}. 提供一个Lua接口，并被其他人用于Facebook AI研究 
+\end{itemize}
+有一些第三方软件包在一个或多个框架的基础上编写，如(\url{https://github.com/Lasagne/Lasagne})或Keras(\url{https://keras.io/})。 它超出了本文的范围，详细讨论所有这些软件包。
+
 \subsection{网络结构}
 
 深度CNN是多层前馈神经网络的一种特例。隐藏层的神经元设计成跟上一层神经元局部连接，并利用参数共享来减少模型复杂度。针对图像这种结构化数据，由不同卷积核来探测不同空间位置上的局部统计特征。通过堆叠多层的卷积结构，实现从低层到高层语义空间的抽象映射。
@@ -50,9 +192,6 @@ AAM是常用医学图像分割方法之一，是用来解释特定对象形状�
   	(10)
 这相当于由8定义的优化问题，式中响应映射在所有像素位置  可评估 ，视真正的标记点位置yi作为潜在变量，式10可以使用EM算法迭代地求解[28]。。
  
- 
-图2 定性比较三种不同特征激活图及相应的局部响应映射图， MCCF通过多通道相关滤波器近似响应图，且用RLMS算法移动到最优位置。SVR基于支持向量机简单地选择最大响应位置。HG-n表示所用不同HG模块数的局部响应图，n取1，2，4。
-Fig 2 Qualitative comparison between the three local detector strategies. The MCCF approximates the response map by multti-channel correlation filter and uses RLMSalgorithm to move to the nearest mode of the density. The SVR simply chooses the maximum detector response based on SVM. HG-n represents the number of different HG modules used to obtain the local response map, n take 1,2,4.
  
 \section{小结与讨论}
 

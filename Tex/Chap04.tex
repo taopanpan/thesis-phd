@@ -17,15 +17,19 @@ Dosovitskiy等\citep{Brox}提出通过学习‘上’卷积网络来重建CNN各
 \section{可视化方法的数学模型}
 
 激活最大化和特征表达反编码重建均是针对已经训练好的模型，对给定输入$x_{i}\in R^{C\times H\times W}$ ，其中C为颜色通道数，H，W为图像高和宽。CNN模型可抽象为函数$\phi$:$R^{C\times H\times W}\rightarrow R^d$ ，其第i个神经元的激活值为$\phi _{i}(x)$ ，对给定图像$x_{0}$ 的特征编码$\phi _{0}=\phi (x_{0})$ ，定义参数$\theta$ 的正则化项$R_{\theta}(x)$ ，寻找使得能量泛函最小化的初始输入$x^*$ ，其数学模型为
-\begin{equation} \label{eq:ch04_01}
+\begin{equation} 
+\label{eq:ch04_01}
      x^*=\underset{x}{argmin} (l(\phi (x),\phi _{0})) + \lambda R_\theta(x))
 \end{equation}
+
 其中， $l$损失比较的是$\phi (x)$ 和目标$\phi_{0}$ 的差异，选择不同的损失函数定义不同的可视化方法。但该优化通常是一个非凸优化问题，通常采用梯度下降法去寻找局部最优值为
-\begin{equation} \label{eq:ch04_02}
+\begin{equation}
+\label{eq:ch04_02}
      x \leftarrow x+ \alpha \frac{\partial \phi _{i}(x)}{\partial x}
 \end{equation}
 激活最大化方法是文献\citepns{Erhan2009}中提出针对深度架构中任意层中的任意神经元所提取的特征，寻找使一个给定的隐含层单元的响应值$\phi _{0}\in R^d$ 最大的输入模式，可由内积形式定义$l$ 损失为
-\begin{equation} \label{eq:ch04_03}
+\begin{equation} 
+\label{eq:ch04_03}
      l(\phi (x),\phi_{0}) =-<\phi (x),\phi _{0}>
 \end{equation}
   式中$\phi_{0}$ 需人工指定，最大化激活的目标可以是全连接层的特征向量，也可以是卷积层某一通道的某一神经元的激活值。
@@ -37,10 +41,10 @@ Dosovitskiy等\citep{Brox}提出通过学习‘上’卷积网络来重建CNN各
 
 \section{梯度更新的可视化方法}
  
-   用于分类的深度CNN提取高层语义信息的同时，丢失了大量低层结构信息。由于首层卷积核大都类似Gabor滤波器，导致梯度更新可视化生成图像中包含许多高频信息，虽然能产生大的响应激活值，但对可视化来说导致生成的图像是不自然的。还由于网络模型的线性操作（如卷积）导致对抗样本\citep{Goodfellow2014}的存在，为得到更类似真实自然图像的可视化结果，需在优化目标函数中引入正则化作为先验。
+用于分类的深度CNN提取高层语义信息的同时，丢失了大量低层结构信息。由于首层卷积核大都类似Gabor滤波器，导致梯度更新可视化生成图像中包含许多高频信息，虽然能产生大的响应激活值，但对可视化来说导致生成的图像是不自然的。还由于网络模型的线性操作（如卷积）导致对抗样本\citep{Goodfellow2014}的存在，为得到更类似真实自然图像的可视化结果，需在优化目标函数中引入正则化作为先验。
 \subsection{$p$ 范数正则化方法} 
 
-   对图像来说，像素大小需在一定范围内，直接最大化激活类别概率，生成图像类似随机噪声图像。文献\citepns{simonyan14deep}通常引入L2范数正则化，惩罚过大和过小的极端值，其公式为$R_{\theta}(x)=\parallel x \parallel _{2}^{2}$ 。在文献\citep{Mahendran2015}中将其扩展到彩色图像RGB通道空间中的$p$范数正则化为
+对图像来说，像素大小需在一定范围内，直接最大化激活类别概率，生成图像类似随机噪声图像。文献\citepns{simonyan14deep}通常引入L2范数正则化，惩罚过大和过小的极端值，其公式为$R_{\theta}(x)=\parallel x \parallel _{2}^{2}$ 。在文献\citep{Mahendran2015}中将其扩展到彩色图像RGB通道空间中的$p$范数正则化为
 \begin{equation} \label{eq:ch04_05}
        R_{\theta}(x)= \frac{1}{HWC^p}\sum_{h=1}^{H}\sum_{w=1}^{W}(\sum_{c=1}^{C}x(x,w,c)^2)^{\frac{p}{2}}
 \end{equation}
@@ -48,7 +52,6 @@ Dosovitskiy等\citep{Brox}提出通过学习‘上’卷积网络来重建CNN各
 \subsection{高斯模糊和TV变分}
 
 基于梯度更新可视化方法，引入高斯滤波器主动惩罚高频信息\citep{JasonYosinski2015}，高斯模糊核半径大小由高斯函数的标准差控制，可随迭代次数动态调整模糊核大小。
-
 
 全变分\citep{Mahendran2015}(Total Variance，TV)跟高斯模糊类似，鼓励可视化生成分片的常量块区域，对离散图像全变分操作可由有限差分来近似求解为    \begin{equation} \label{eq:ch04_06}
        R_{TV}(x)= \frac{1}{HWC^\beta}\sum _{hwc}((x(h,w+1,c)-x(h,w,c))^2+(x(h+1,w,c)-x(h,w,c))^2)^{\frac{\beta}{2}}

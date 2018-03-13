@@ -17,7 +17,8 @@
 \subsection{全卷积的网络}
 
 与GoogLeNet模型\citep{Szegedy2015}、ResNet模型\citep{he15}类似，使用多层卷积层（每层包括ReLU层、BN层和Pooling层），用全局平均池化操作替代全连接层。Deep-Echo模型结构中对最后卷积层输出的特征图，用金字塔平均池化层\citep{He2015spp}代替最大化池化层和全连接层。最后一层输出单元数目为类别的数目，由于实验采用的标准切面有七个类别，因此最后一层输出7，依次对应相应的类别，采用交叉熵损失函数加L2正则化。卷积核数目从64开始， 每经过一次最大池化层，卷积核数目翻倍，直到512为止。学习率初始化为0.01。具体实验步骤和参数设置见后文实验部分。整个网络结构如图\ref{fig:ch03_02}所示。
- \begin{figure}[!htbp]
+
+\begin{figure}[!htbp]
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
