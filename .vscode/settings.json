@@ -29,5 +29,7 @@
             "%DOC%"
         ]
     }
-]
+],
+"latex-workshop.latex.autoBuild.onSave.enabled":false,
+"editor.wordWrap": "on"
 }
