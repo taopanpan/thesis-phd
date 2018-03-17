@@ -151,7 +151,7 @@ MLP和CNN之间有两个关键的区别：首先，网络中的权重以网络�
 
 由于梯度需要通过时间从输出反向传播，因此RNN具有固有的深度（及时性），因此与常规深层神经网络一样遭受梯度弥散难以训练问题。为此已经设计几种专用单元来解决上下文依赖问题，最早和最流行的是长期短期记忆（Long Short-Term Memory，LSTM）单元\citep{Hochreiter1997Long}，而门控复发单元（Gated Recurrent Unit，GRU）\citep{Cho2014Learning}是LSTM的最新简化版。
 
-尽管最初提出是针对一维输入，但RNN越来越多地应用于图像，在自然图像中，'pixelRNN'被用作自回归模型，生成模型最终可以生成类似于训练集样本的新图像。对于医疗应用，它们已被用于分割问题，并且在各种竞赛挑战中具有令人鼓舞的结果\citep{Stollenga2015Parallel}。
+尽管最初提出是针对一维输入，但RNN越来越多地应用于图像，在自然图像中，“pixelRNN”被用作自回归模型，生成模型最终可以生成类似于训练集样本的新图像。对于医疗应用，它们已被用于分割问题，并且在各种竞赛挑战中具有令人鼓舞的结果\citep{Stollenga2015Parallel}。
 
 \subsection{无监督深度学习}
 \subsubsection{自编码器}
@@ -194,8 +194,8 @@ GPU和GPU计算库（CUDA，OpenCL）的广泛应用促成了深度学习急剧�
 除硬件之外，深度学习方法普及的另一推动力是开源软件库和共享深度模型的广泛可用性。这些库提供了神经网络中重要操作（如卷积、循环网络）的高效GPU实现方便用户使用。当前流行的软件包是（按字母顺序）：
 \begin{itemize}
  \item {\bf Caffe} \citep{Jia2014}. 提供C ++和Python接口，由加州大学伯克利分校的研究生开发。
- \item {\bf Tensorflow} \citep{Abadi2016TensorFlow}. 提供由Google开发的C ++，Python和接口，供Google研究使用.
- \item {\bf Theano} \citep{AlRfou2016Theano}. 提供由蒙特利尔MILA实验室开发的Python界面。
+ \item {\bf Tensorflow} \citep{Abadi2016TensorFlow}. 由Google开发提供C ++，Python和接口.
+ \item {\bf Theano} \citep{AlRfou2016Theano}. 提供由蒙特利尔MILA实验室开发的Python库。
  \item {\bf Mxnet} \citep{Chen2015mxnet}. 提供一个Lua接口，并被其他人用于Facebook AI研究 
 \end{itemize}
  

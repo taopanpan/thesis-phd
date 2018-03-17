@@ -23,16 +23,16 @@
       \small
       \caption{物体检测算法}\label{alg:ch05_01}
       \begin{algorithmic}[1]
-          \State 输入:{($x,f$)}\Comment{x为图像，f为窗口得分函数}
-          \State $D$:= 所有候选框 $r \in$ 使得$f(x, r) > 0$            
+
+          \State \textbf{输入:}{($x,f$)}\Comment{x为图像，f为窗口得分函数}
+          \State $D$:= 所有候选框 $r \in$ 使得$f(x, r) > 0$  \Comment{一般采用滑动窗口}          
           \State 按 $f$ 排序$D$使得 $D1\geq D2 \geq D3 \geq ...Dn$ 
           \State 令$y^\star:=\{ \}$
-          \State \qquad for $i = 1$ to $n$ do
+          \State \qquad for $i = 1$ to $n$ do\Comment{一般采用非极大值抑制}
           \State  \qquad\qquad  若 $D_{i}$ 和 $y^\star$中任意候选框不重叠
           \State   \qquad \qquad      $y^\star$ := $y^\star  \bigcup {D_{i}}$
           \State \qquad\textbf{End} for 
           \State \textbf{Return:}  $y^\star$，物体的目标位置.
-          \EndProcedure
       \end{algorithmic}
   \end{algorithm} 
  
@@ -63,9 +63,13 @@
 \label{fig:ch05_01}
 \end{figure}
 
-为引入空间尺度不变性，采用多尺度和多纵横比的“参考”框（anchor）（图\ref{fig:ch05_01}左上所示）。该机制可看作是金字塔型参考框的回归，避免了枚举多尺度、多纵横比的图像或卷积核。
-在每一个滑动窗口的位置，同时预测$k$个参考区域，回归层有$4k$个输出，即$k$个box的坐标编码，多元逻辑回归分类层输出$(c+1)×k$个（物体类别数$c$加背景类的）概率估计。
-候选框由相应的$k$个anchor的参数化表示，每个anchor以当前滑动窗口中心为中心，并对应一种尺度和长宽比，我们使用3种尺度和3种长宽比，在每一个滑动位置就有$k=9$个anchor。对于大小为w×h的卷积特征映射，总共有$w \times h\times k$个anchor。
+为引入空间尺度不变性，采用多尺度和多纵横比的“参考”框（anchor）
+（图\ref{fig:ch05_01}左上所示）。该机制可看作是金字塔型参考框的回归，避免了枚举多尺度、多纵横比的图像或卷积核。
+在每一个滑动窗口的位置，同时预测$k$个参考区域，回归层有$4k$个输出，即$k$个box的坐标编码
+，多元逻辑回归分类层输出$(c+1)×k$个（物体类别数$c$加背景类的）概率估计。
+候选框由相应的$k$个anchor的参数化表示，每个anchor以当前滑动窗口中心为中心，
+并对应一种尺度和长宽比，我们使用3种尺度和3种长宽比，在每一个滑动位置就有$k=9$个anchor。
+对于大小为w×h的卷积特征映射，总共有$w \times h\times k$个anchor。
 
 \begin{figure}[!htbp]
 \centering
@@ -190,7 +194,7 @@ smooth_{L1}(x)= \left\{
     \renewcommand{\arraystretch}{1.2}%row space 
     \begin{tabular}{lccc}
         \cline{1-4}% partial hline from column i to column j
-           \qquad Method  & Accuracy & Sensitivity &Specificity \\
+            Method  & Accuracy & Sensitivity &Specificity \\
         \hline
         Baseline\citepns{Ren2015a} & $95.06\%$ & $73.91\%$ & $97.56\%$\\
         \hline
@@ -214,7 +218,7 @@ smooth_{L1}(x)= \left\{
 \subsection{检测左心室及其朝向}
 
 MRI左心室短轴的检测由于组织结构相对简单，且噪声少。为验证提出算法的通用性，针对超声图像左心室长轴切面检测心室、二尖瓣环、心内膜垫和心尖位置，并估计左心室朝向。主要包含单扇形和多普勒成像的双扇形两种由专业医师标注食管中段四腔心(ME4C) 的标准切面视频构成，视频中至少包含2-3个心动周期，依据医师建议从视频中截取5帧，并经医师检验手工筛选后得到900张ME4C切面，对切面内左心室（LV），二尖瓣环、心内膜垫和心尖位置进行人工标注作为“金标准”。其中随机选取100张作为测试集，其余作为训练集。
-训练时采用提出的联合多任务损失，以VGG16网络作为检测的预训练的模型为例，在RPN中添加空间变换网络实现了各个候选框的空间变换，并施加旋转朝向损失。VGG16网络特征提取器包括13个卷积层，并输出512个conv5特征图，空间变换网络包括具有两个同样卷积池化层组成的定位网络，其由20个卷积核大小为5、步长为1和核大小为2的池化层构成，两层全连接层回归得出6个仿射变换参数，其中，全连接层的激活函数需选择为双曲正切函数，权重高斯初始化，而变换参数初始化为$[1 0 0 0 1 0]^T$。其它跟Faster RCNN中设置一致，其中$\lambda$、$\mu$，分别取0.1和0.001；训练方法采取端到端的近似联合优化，迭代轮数为50000。评价指标采用平均检测精度(mean average precision，mAP)，是多个类别平均检测精度的平均值。表二显示使用提出方法分别在VGG16模型和ResNet101模型上，结合困难样例挖掘训练方法得出的测试结果，其中OHEM表示相应模型结合在线困难样例挖掘方法的检测结果，STN表示结合提出带朝向损失的空间变换网络的检测结果，在测试集上，针对左心室的AP最优可达99.12\%，结果表明提出算法在不同基础模型上均可提高检测精度。
+训练时采用提出的联合多任务损失，以VGG16网络作为检测的预训练的模型为例，在RPN中添加空间变换网络实现了各个候选框的空间变换，并施加旋转朝向损失。VGG16网络特征提取器包括13个卷积层，并输出512个conv5特征图，空间变换网络包括具有两个同样卷积池化层组成的定位网络，其由20个卷积核大小为5、步长为1和核大小为2的池化层构成，两层全连接层回归得出6个仿射变换参数，其中，全连接层的激活函数需选择为双曲正切函数，权重高斯初始化，而变换参数初始化为$[1, 0, 0, 0, 1, 0]^T$。其它跟Faster RCNN中设置一致，其中$\lambda$、$\mu$，分别取0.1和0.001；训练方法采取端到端的近似联合优化，迭代轮数为50000。评价指标采用平均检测精度(mean average precision，mAP)，是多个类别平均检测精度的平均值。表二显示使用提出方法分别在VGG16模型和ResNet101模型上，结合困难样例挖掘训练方法得出的测试结果，其中OHEM表示相应模型结合在线困难样例挖掘方法的检测结果，STN表示结合提出带朝向损失的空间变换网络的检测结果，在测试集上，针对左心室的AP最优可达99.12\%，结果表明提出算法在不同基础模型上均可提高检测精度。
 
 \begin{table}[!htbp]
     \centering
@@ -248,7 +252,7 @@ MRI左心室短轴的检测由于组织结构相对简单，且噪声少。为�
     \renewcommand{\arraystretch}{1.2}%row space 
     \begin{tabular}{lccccccc}
         \cline{1-8}% partial hline from column i to column j
-           \qquad Method  & $-45^{\circ}$ & $-30^{\circ}$ & $-15^{\circ}$ & $+15^{\circ}$ & $+30^{\circ}$&$ +45^{\circ}$& Avg\\
+            Method  & $-45^{\circ}$ & $-30^{\circ}$ & $-15^{\circ}$ & $+15^{\circ}$ & $+30^{\circ}$&$ +45^{\circ}$& Avg\\
          
         \hline
         Compute & $66.65\%$ & $78.02\%$& $87.39\%$& $85.53\%$& $75.83\%$ &$62.31\%$ &$75.94\%$  \\
@@ -265,7 +269,7 @@ MRI左心室短轴的检测由于组织结构相对简单，且噪声少。为�
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[width=0.85\textwidth]{ch05_03}
+\includegraphics[height= 30mm,width=0.85\textwidth]{ch05_03}
 \caption{左图显示apx检测精度的累积分布：正确的（Cor）或定位不准确（Loc）的假阳性，与之混淆类似类别（Sim）与其他类别（Oth）或背景（BG）。固体红色线是以“强”标准（大于0.5 交叠比），反映精确度随检测增加而变化。红色虚线使用“弱”标准（大于0.1交叠比）。右图显示排名靠前的假阳性类型的分布。}
 \label{fig:ch05_03}
 \end{figure} 	                          
@@ -274,7 +278,7 @@ MRI左心室短轴的检测由于组织结构相对简单，且噪声少。为�
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[width=0.85\textwidth]{ch05_04}
+\includegraphics[height= 30mm,width=0.85\textwidth]{ch05_04}
 \caption{(a,b) 表示不同MRI图像检测左心室结果，(c,d)两图表示超声心动图的ME4C切面的左心室、二尖瓣环、心内膜垫和心尖位置及旋转角度的检测结果。}
 \label{fig:ch05_04}
 \end{figure} 	                         
