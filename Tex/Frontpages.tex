@@ -47,9 +47,7 @@
 
 对医学图像的内容理解是应用计算机视觉与人工智能进行医学影像分析的最基本问题之一，从二维或三维图像数据中理解图像内容一直是医学图像应用研究的重点领域，涉及到感兴趣目标的去噪、分类、检测、分割和检索等研究内容。由于图像内容理解问题本身的困难性，并且医学图像存在特有的领域先验,如超声特有的斑点噪声，衰减，阴影等因素影响，导致目标受尺度、旋转、形变等而形成不同的成像，使得用计算机对医学图像中的内容进行鲁棒的表达与识别依然是一个严峻的挑战。主要原因之一是不同具体任务分别处于图像抽象的的不同层次，如何有效结合低层的图像数据信息和高层的语义信息是解决医学图像的内容理解问题的关键所在。
 
-深度学习为代表的人工智能技术在医学影像分析领域呈现出了非常引人注目的研究进展。但仍有一系列问题难以克服：(1)不同网络结构对特征学习的影响（如何设计高效结构理论可解释性；(2)学习到的特征为什么能起作用？可视化；(3)深度学习的优异泛化能力从何而来？检测分割。
-
-针对以上问题，论文工作主要涉及深度卷积神经网络自动提取分层递阶图像特征，并在不同层次特征应用到不同抽象层次图像内容理解的研究,论文在深入分析传统计算机视觉算法的基础上，重点研究了深度学习模型、基于形状先验的统计形状模型，并致力于利用形状先验信息结合深度卷积神经网络解决医学特定目标检测与分割问题。
+深度学习为代表的人工智能技术在医学影像分析领域呈现出了非常引人注目的研究进展。但仍有一系列问题难以克服：(1)不同网络结构对特征学习的影响（如何设计高效结构理论可解释性；(2)学习到的特征为什么能起作用？可视化；(3)深度学习的优异泛化能力从何而来？检测分割。针对以上问题，论文工作主要涉及深度卷积神经网络自动提取分层递阶图像特征，并在不同层次特征应用到不同抽象层次图像内容理解的研究,论文在深入分析传统计算机视觉算法的基础上，重点研究了深度学习模型、基于形状先验的统计形状模型，并致力于利用形状先验信息结合深度卷积神经网络解决医学特定目标检测与分割问题。
 
 论文的主要工作和创新之处在于：
 
@@ -59,43 +57,30 @@
 
 针对自动检测医学图像中指定目标时存在的问题，提出了一种基于深度学习自动检测目标位置和估计对象姿态的算法。该算法基于区域深度卷积神经网络和目标结构的先验知识，采用区域生成候选框网络、感兴趣区域池化策略，引入包括分类损失、边框位置回归定位损失和像平面内朝向损失的多任务损失函数，近似优化一个端到端的有监督定位网络，能快速地对医学图像中目标自动定位，有效地为下一步的分割和参数自动提取提供定位结果。并在超声心动图左心室检测中提出利用检测额外标记点：二尖瓣环、心内膜垫和心尖，能高效地对左心室朝向姿态进行估计。
 
-针对图像去噪中存在的问题，我们提出了一个有监督多层残差卷积网络框架，结合不同损失函数学习端到端映射变换。输入是带噪声的图像和原图像，输出的是去噪后的图像。
-
-针对医学超声图像的对比度低、存在斑点噪声导致难以分割的问题，提出一种利用沙漏卷积神经网络特征的多尺度形状模型分割方法，自动定位经食道超声心动图中心室并全自动分割心室内外膜。首先，结合梯度方向直方图特征和支持向量机的心室自动检测方法，自动确定分割模型中的初始轮廓；其次, 将心室分割任务纳入统计形变模型形状特征点对齐任务框架，通过比较不同外观纹理特征和激活图，包括传统手工设计的特征和利用深度学习自动学习的卷积特征，提出利用堆叠多级沙漏卷积网络建模心室外观的全局和局部信息，统一活动外观模型和局部受限模型的概率形式，采用反向组合梯度下降算法迭代优化分割结果，完成左心室轮廓的自动提取。然后，以医生手动勾勒的轮廓作为“金标准”，通过构造心室分割数据集以评价算法，且提出了扩充数据样本的方法来克服深度卷积网络过拟合问题，进行详尽实验讨论分析了基于不同层级的多级沙漏卷积网络对全局和局部纹理特征建模能力对分割效果的影响。实验结果表明，卷积模块允许网络提取专门用于指定任务的特征，并通过实验显示其优于手工设计的特征。该方法分割效果优于传统形状对齐方法，能够解决自动定位超声心动图中左心室的初始轮廓和弱边界自动分割的问题。
+针对特征表示的底层视觉任务：图像去噪和分割中存在的问题，我们提出了一个有监督多层残差卷积网络框架，结合不同损失函数学习端到端映射变换。输入是带噪声的图像和原图像，输出的是去噪后的图像。针对医学超声图像的对比度低、存在斑点噪声导致难以分割的问题，提出一种利用沙漏卷积神经网络特征的多尺度形状模型分割方法，自动定位经食道超声心动图中心室并全自动分割心室内外膜。首先，结合梯度方向直方图特征和支持向量机的心室自动检测方法，自动确定分割模型中的初始轮廓；其次, 将心室分割任务纳入统计形变模型形状特征点对齐任务框架，通过比较不同外观纹理特征和激活图，包括传统手工设计的特征和利用深度学习自动学习的卷积特征，提出利用堆叠多级沙漏卷积网络建模心室外观的全局和局部信息，统一活动外观模型和局部受限模型的概率形式，采用反向组合梯度下降算法迭代优化分割结果，完成左心室轮廓的自动提取。然后，以医生手动勾勒的轮廓作为“金标准”，通过构造心室分割数据集以评价算法，且提出了扩充数据样本的方法来克服深度卷积网络过拟合问题，进行详尽实验讨论分析了基于不同层级的多级沙漏卷积网络对全局和局部纹理特征建模能力对分割效果的影响。实验结果表明，卷积模块允许网络提取专门用于指定任务的特征，并通过实验显示其优于手工设计的特征。该方法分割效果优于传统形状对齐方法，能够解决自动定位超声心动图中左心室的初始轮廓和弱边界自动分割的问题。
 
 
-\keywords{深度学习，卷积神经网络，图像内容理解}
+\keywords{深度学习，卷积神经网络，医学图像分析，特征表示，深度可视化}
 %\end{abstract}
 
 
 \chapter*{Abstract}% does not show the title on the top
 \chaptermark{Abstract}
 %\begin{englishabstract}% will show the title on the top
-Machine learning is used in the medical imaging field, including computer-aided diagnosis, image
-segmentation, image registration, image fusion, image-guided therapy, image annotation,
-and image database retrieval. Deep learning methods are a set of algorithms in machine learning,
-which try to automatically learn multiple levels of representation and abstraction that help
-make sense of data. This in turn leads to the necessity of understanding and examining the characteristics
-of deep learning approaches, in order to be able to apply and refine the methods in a
-proper way.
+  The understanding of the content of medical images is one of the most basic issues in the application of computer vision and artificial intelligence in medical image analysis. Understanding the content of images from two-dimensional or three-dimensional image data has always been a key area of ​​medical image application research and related to interested targets. Denoising, classification, detection, segmentation and retrieval of research content. Due to the difficulty in understanding the image content itself, and the uniqueness of the medical image, such as the speckle noise, attenuation, shadow and other factors that are unique to ultrasound, the target is subject to different scales, rotations, deformations, etc. to form different images. Robust expression and recognition of the contents of medical images with computers is still a serious challenge. One of the main reasons is that different specific tasks are at different levels of image abstraction. How to effectively combine low-level image data information and high-level semantic information is the key to solving the content understanding problem of medical images.
 
-The aim of this work is to evaluate deep learning methods in the medical domain and to
-understand if deep learning methods (random recursive support vector machines, stacked sparse
-auto-encoders, stacked denoising auto-encoders, K-means deep learning algorithm) outperform
-other state of the art approaches (K-nearest neighbor, support vector machines, extremely randomized
-trees) on two classification tasks, where the methods are evaluated on a handwritten
-digit (MNIST) and on a medical (PULMO) dataset. Beside an evaluation in terms of accuracy
-and runtime, a qualitative analysis of the learned features and practical recommendations for the
-evaluated methods are provided within this work. This should help improve the application and
-refinement of the evaluated methods in future.
+  The artificial intelligence technology represented by deep learning has shown very remarkable research progress in the field of medical image analysis. However, there are still a series of problems that are difficult to overcome: (1) the influence of different network structures on feature learning (how to design efficient structural theory interpretability; (2) why the learned features can work? visualization; (3) excellence in deep learning Where is the generalization ability coming from? Detecting segmentation.To solve the above problems, the dissertation mainly involves the automatic extraction of hierarchical hierarchical image features by deep convolutional neural networks and the application of different levels of features to the understanding of image content at different levels of abstraction. On the basis of in-depth analysis of traditional computer vision algorithms, a deep learning model and a statistical shape model based on shape priors are focused on, and it is devoted to solving medical specific target detection and segmentation problems using shape prior information combined with deep convolutional neural network.
+  
+  The main work and innovation of the dissertation lies in:
+  
+  By constructing a standard  database, an automatic recognition method based on deep convolutional neural network for the standard section of echocardiogram is proposed. This algorithm aims at the shortcomings of most of the parameters of the network full-connection layer occupation model, and introduces the spatial pyramid mean-value pool instead of the full connection. 
+  At the layer, more spatial structure information is obtained, and the global spatial pyramid mean pooling method is used to perform fine-tuning migration learning, and the model parameters are greatly reduced, the overfitting risk is reduced, and similar attention mechanisms are introduced into the model visualization process through category salient regions. The effect of data size on the classification accuracy of the model was analyzed in detail, and the interpretability and effectiveness of the model were analyzed.
+  
+  For the interpretability problem of image classification model based on deep convolutional neural network, by evaluating the potential representation of model feature space, a visualization method for improving the understanding of model feature space is proposed. Given any trained deep convolutional network model, a regularization method of image interpretability obtained by maximizing the activation is introduced, a spatial pyramid decomposition method is proposed in combination with the existing regularization method, and a multilayer Laplacian pyramid is constructed. Actively enhance the low-frequency components of the target image feature space, combine multi-layer Gaussian pyramid to adjust the high-frequency components of its feature space to obtain a better visualization effect. And by limiting the visualization area, the use of category-significant activation graph techniques to suppress context-free information can further improve visualization. The model effectively overcomes the problems of semantic visual duplication and low efficiency caused by the inability to actively adjust high and low frequency components in the original visualization methods.
+  
+  Aiming at the problem of automatically detecting the target in the medical image, an algorithm based on deep learning to automatically detect the target position and estimate the pose of the object is proposed. The algorithm is based on prior knowledge of regional deep convolutional neural networks and target structures, and uses region-generating candidate frame networks and pooling strategies for regions of interest to introduce multi-tasks including loss of classification, position regression of borders, orientation loss, and orientation loss in the image plane. The loss function, approximately optimizing an end-to-end supervised positioning network, can quickly locate the target in the medical image and effectively provide the positioning results for the next segmentation and automatic parameter extraction. In echocardiographic left ventricular detection, it is proposed to use the detection of additional markers: mitral annulus, endocardial cushion, and apex, which can efficiently estimate left ventricle orientation.
+  
+  For the underlying visual tasks of feature representation: problems in image denoising and segmentation, we propose a supervised multi-level residual convolutional network framework that combines end-to-end mapping transformations with different loss functions. The input is a noisy image and the original image, and the output is a denoised image. In view of the low contrast of medical ultrasound images and the difficulty of segmentation due to speckle noise, a multi-scale shape model segmentation method based on the features of the hourglass convolutional neural network is proposed to automatically locate the center of transesophageal echocardiography and to automatically segment the indoor and outdoor membrane. Firstly, combining the gradient direction histogram feature and the ventricular auto-detection method of the support vector machine, the initial contour in the segmentation model is automatically determined; secondly, the ventricular segmentation task is incorporated into the statistical deformation model shape feature point alignment task framework, and the different appearance texture features are compared. And activation diagrams, including the features of traditional manual design and the convolution features that are learned automatically with deep learning, propose the use of stacked multi-level hourglass convolutional networks to model the global and local information of the ventricular appearance, unifying the active appearance model and the locally constrained model. In the form of probability, the inverse combined gradient descent algorithm is used to iteratively optimize the segmentation results to complete the automatic extraction of left ventricular contours. Then, the contours manually outlined by doctors are used as the "gold standard" to construct the ventricular segmentation data set to evaluate the algorithm, and a method of extending the data samples is proposed to overcome the over-fitting problem of the deep convolutional network. Detailed experiments are discussed and analyzed. The Effects of Different Levels of Multilevel Sandglass Convolution Networks on Global and Local Texture Feature Modeling and Segmentation Effects . The experimental results show that the convolution module allows the network to extract features that are specific to a given task and show that it is superior to manual design features through experiments. The segmentation effect of this method is better than the traditional shape alignment method. It can solve the problem of automatic segmentation of the initial contour and the weak boundary of the left ventricle in the automatic positioning echocardiogram.
 
-Results indicate that the stacked sparse auto-encoder, the stacked denoising auto-encoder
-and the support vector machine achieve the highest accuracy among all evaluated approaches on
-both datasets. These methods are preferable, if the available computational resources allow to
-use them. In contrast, the random recursive support vector machines exhibit the shortest training
-time on both datasets, but achieve a poorer accuracy than the afore mentioned approaches. This
-implies that if the computational resources are limited and the runtime is an important issue, the
-random recursive support vector machines should be used.
-
-\englishkeywords{University of Chinese Academy of Sciences (UCAS)}
+\englishkeywords{Deep learning, convolutional neural network, medical image analysis, feature representation, depth visualization}
 %\end{englishabstract}

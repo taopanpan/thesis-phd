@@ -1,7 +1,7 @@
-\chapter{心室的计算机辅助检测方法}
+\chapter{特征表示的中层结构性语义应用}
 \label{chap:Detection}
 
-
+\section{心室的计算机辅助检测方法}
 计算机辅助检测(Computer-Aided Detections, CADs)是医学影像诊断过程中的一项重要任务，是进行相关结构功能测量的前提条件。其中，二维图像的目标组织结构自动检测是CADs技术的核心基础。在临床实践中，医生需整合不同模态、不同位置方向且以不同比例显示的图像信息，目前的研究主要关注如何使检测过程快速自动化。由于医学影像自身的特殊性，比如缺乏大量高质量标注数据；大多数医学目标组织结构存在非刚性形变；图像背景前景的区分不明显等，导致组织结构自动定位比较困难。现有大多数CADs系统在临床实际应用中表现不佳的原因是：检测结果的敏感性和特异性都较低，诊断效能低\cite{Cheng2016a}。
 
 
@@ -11,7 +11,7 @@
 不依据具体的强先验假设，机器学习算法可通过区分前景目标对象和背景来解决目标结构自动检测的问题。如Kellman等\citep{Lu2011}提出了一种使用概率集成提升树来估计LV姿态和用空间间隔学习LV短轴边界的方法。Zhou等\citep{Zhou2005}在超声心动图中通过规一化集成提升回归学习非线性映射以定位LV，其团队后来提出针对多个器官的特异性置信最大化分类器，整合更高的自由度以改善回归定位任务的精度。Liu等\citep{She2007}通过利用基于子模块函数优化理论的多标记搜索策略来进行标记点的检测。Zheng等\citep{Zheng2014}在实现器官定位的同时，通过组合优化置信度来估计目标器官的位置、缩放及朝向等参数值。前述机器学习算法都基于弱先验知识，启发式设计相关特征，结合滑动窗口策略，选择分类器进行分类判断窗口中内容以估计相应位置。
 
 
-近来通用物体检测领域取得巨大进展，主要得益于深度学习能利用大量标注数据，从原始像素出发，逐层分级学习中高层抽象语义特征\citep{Sharif2014}。区域卷积神经网络\citep{Girshick2014b}在大规模自然图像数据集(如ImageNet\citep{Russakovsky})上，识别性能远超传统方法\citep{Girshick2014b,Krizhevsky2012}。当前实践中由于深度学习需要大量的训练数据，所以仅在少数医学任务中取得有限的成功应用。深度学习方法用在定位检测问题时可分为两个阶段\citep{Girshick2015b}：候选框位置选取和窗口内容类别分类。如利用深度卷积网络进行显微镜图像中细胞检测\citep{Akram2016}、结合深度全卷积网络的MRI心室检测与分割\citep{Emad2015,Tran2016a}和超声图像解剖结构的检测\citep{Chen2016i}。
+近来通用物体检测领域取得巨大进展，主要得益于深度学习能利用大量标注数据，从原始像素出发，逐层分级学习中高层抽象语义特征\citep{Sharif2014}。区域卷积神经网络\citep{Girshick2014b}在大规模自然图像数据集(如ImageNet\citep{Deng2009ImageNet})上，识别性能远超传统方法\citep{Girshick2014b,Krizhevsky2012}。当前实践中由于深度学习需要大量的训练数据，所以仅在少数医学任务中取得有限的成功应用。深度学习方法用在定位检测问题时可分为两个阶段\citep{Girshick2015b}：候选框位置选取和窗口内容类别分类。如利用深度卷积网络进行显微镜图像中细胞检测\citep{Akram2016}、结合深度全卷积网络的MRI心室检测与分割\citep{Emad2015,Tran2016a}和超声图像解剖结构的检测\citep{Chen2016i}。
 
 上述方法大都关注特定目标结构的检测分割，而本文专门针对目前CADs普遍存在的检测定位问题，基于改进的生成候选框的快速区域深度卷积神经网络（Faster RCNN）\citep{Ren2015a}方法，提出一种医学目标结构检测框架:1）在区域生成网络的基础上引入空间变换损失使得候选框生成网络能捕捉目标的空间变换参数；2）采用在线困难样例挖掘策略，加快训练收敛过程，提高检测小目标的准确度；3）并基于目标先验知识，针对左心室提出利用检测二尖瓣环、心内膜垫和心尖位置，高效估计左心室姿态参数。4）为验证该算法的鲁棒性和有效性，分别针对两个具体CADs应用进行实验分析。
 
@@ -22,7 +22,7 @@
 \begin{algorithm}[!htbp]
       \small
       \caption{物体检测算法}\label{alg:ch05_01}
-      \begin{algorithmic}[1]
+      \begin{algorithmic}
 
           \State \textbf{输入:}{($x,f$)}\Comment{x为图像，f为窗口得分函数}
           \State $D$:= 所有候选框 $r \in$ 使得$f(x, r) > 0$  \Comment{一般采用滑动窗口}          
@@ -54,17 +54,17 @@
 
 候选区域生成网络将一图像（任意大小）作为输入，输出目标候选框的集合和每个候选框内有无目标的概率估计，如图\ref{fig:ch05_01}右图所示，RPN在卷积层后接两个全卷积层完成候选区域生成功能，以实现增加滑动窗口操作。该模型使用全卷积网络[20]处理任意大小的图片输入，为了和目标检测网络\citep{Girshick2015b}共享计算，在特征提取的过程中同时计算目标检测所需的感兴趣区域的初始估计，在最后一个共享卷积层输出的特征映射图上滑动小网络，卷积特征映射图上n×n大小空间窗口作为该网络全连接的输入，本文n取3。
 每个滑动窗口映射到一个低维向量上（如图\ref{fig:ch05_01}左上中256-d），该向量输出给两个全连接层——候选框位置定位回归层和候选框类别分类层。原文中采用类别无关分类损失，即仅区分该候选框内是否包含物体（前/背景），本文将其扩展为类别相关的分类损失。
+
 \begin{figure}[!htbp]
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[width=0.85\textwidth]{ch05_01}
-\caption{左上：引入空间不变性的anchor机制 左下：空间变换网络  右：Faster R-CNN带仿射变换的检测模型框架}
+\includegraphics[width=0.9\textwidth]{ch05_01}
+\caption[区域生成网络模型的各个组件图]{左上：引入空间不变性的anchor机制 左下：空间变换网络  右：Faster R-CNN带仿射变换的检测模型框架}
 \label{fig:ch05_01}
 \end{figure}
 
-为引入空间尺度不变性，采用多尺度和多纵横比的“参考”框（anchor）
-（图\ref{fig:ch05_01}左上所示）。该机制可看作是金字塔型参考框的回归，避免了枚举多尺度、多纵横比的图像或卷积核。
+为引入空间尺度不变性，采用多尺度和多纵横比的“参考”框（anchor），如图\ref{fig:ch05_01}左上所示。该机制可看作是金字塔型参考框的回归，避免了枚举多尺度、多纵横比的图像或卷积核。
 在每一个滑动窗口的位置，同时预测$k$个参考区域，回归层有$4k$个输出，即$k$个box的坐标编码
 ，多元逻辑回归分类层输出$(c+1)×k$个（物体类别数$c$加背景类的）概率估计。
 候选框由相应的$k$个anchor的参数化表示，每个anchor以当前滑动窗口中心为中心，
@@ -76,7 +76,7 @@
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
 \includegraphics[trim = 30mm 0mm  30mm 0mm,width=0.95\textwidth]{ch05_02}
-\caption{考虑物体朝向的区域生成网络模型结构示意图，图中conv表示卷积层，pool表示池化层，FC表示全连接层，softmax class loss表示多任务损失中的分类损失，Bbox.reg loss 表示候选框回归定位损失，Rotation loss表示文中的针对变换参数θ的Von Mise损失。}
+\caption[考虑物体朝向的区域生成网络模型结构示意图]{考虑物体朝向的区域生成网络模型结构示意图，图中conv表示卷积层，pool表示池化层，FC表示全连接层，softmax class loss表示多任务损失中的分类损失，Bbox.reg loss 表示候选框回归定位损失，Rotation loss表示文中的针对变换参数θ的Von Mise损失。}
 \label{fig:ch05_02}
 \end{figure} 
 
@@ -189,6 +189,7 @@ smooth_{L1}(x)= \left\{
 
 \begin{table}[!htbp]
     \centering
+    \caption{不同模型检测精度的比较表}
     \footnotesize% fontsize
     \setlength{\tabcolsep}{4pt}% column separation
     \renewcommand{\arraystretch}{1.2}%row space 
@@ -207,7 +208,7 @@ smooth_{L1}(x)= \left\{
         ResNet101\_OHEM & $\textbf{99.49\%}$ & $\textbf{83.12\%}$ & $\textbf{99.40\%}$\\
         \hline\hline
     \end{tabular}
-    \caption{不同模型检测精度的比较}
+    
     \label{tab:ch05_02}
 \end{table}
 
@@ -239,7 +240,7 @@ MRI左心室短轴的检测由于组织结构相对简单，且噪声少。为�
         ResNet101\_OHEM\_STN & $\textbf{85.59\%}$ & $\textbf{99.12\%}$ & $\textbf{67.89\%}$ & $\textbf{87.66\%}$ & $\textbf{87.48\%}$\\
         \hline\hline
     \end{tabular}
-    \caption{不同模型检测精度，LV表示左心室，Apx代表心尖，left代表二尖瓣环，right代表心内膜垫}
+    \caption[不同模型的检测精度表]{不同模型的检测精度表，其中LV表示左心室，Apx代表心尖，left代表二尖瓣环，right代表心内膜垫}
     \label{tab:ch05_03}
 \end{table}
 
@@ -260,7 +261,7 @@ MRI左心室短轴的检测由于组织结构相对简单，且噪声少。为�
         Pred & $\textbf{73.09\%}$ & $\textbf{81.72\%}$ & $\textbf{81.75\%}$ & $\textbf{89.56\%}$ & $\textbf{80.48\%}$& $\textbf{70.31\%}$& $\textbf{80.76\%}$\\
         \hline\hline
     \end{tabular}
-    \caption{不同旋转角度分类检测性能比较，Compute表示根据额外标记计算得到的结果，Pred表示模型预测结果}
+    \caption[不同旋转角度分类检测性能比较]{不同旋转角度分类检测性能比较，Compute表示根据额外标记计算得到的结果，Pred表示模型预测结果}
     \label{tab:ch05_04}
 \end{table}
 
@@ -269,8 +270,8 @@ MRI左心室短轴的检测由于组织结构相对简单，且噪声少。为�
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[height= 30mm,width=0.85\textwidth]{ch05_03}
-\caption{左图显示apx检测精度的累积分布：正确的（Cor）或定位不准确（Loc）的假阳性，与之混淆类似类别（Sim）与其他类别（Oth）或背景（BG）。固体红色线是以“强”标准（大于0.5 交叠比），反映精确度随检测增加而变化。红色虚线使用“弱”标准（大于0.1交叠比）。右图显示排名靠前的假阳性类型的分布。}
+\includegraphics[height= 30mm,width=0.9\textwidth]{ch05_03}
+\caption[利用检测分析工具\citep{Hoiem2012}的检测结果]{利用检测分析工具\citep{Hoiem2012}的检测结果,左图显示apx检测精度的累积分布：正确的（Cor）或定位不准确（Loc）的假阳性，与之混淆类似类别（Sim）与其他类别（Oth）或背景（BG）。固体红色线是以“强”标准（大于0.5 交叠比），反映精确度随检测增加而变化。红色虚线使用“弱”标准（大于0.1交叠比）。右图显示排名靠前的假阳性类型的分布。}
 \label{fig:ch05_03}
 \end{figure} 	                          
  
@@ -278,8 +279,8 @@ MRI左心室短轴的检测由于组织结构相对简单，且噪声少。为�
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[height= 30mm,width=0.85\textwidth]{ch05_04}
-\caption{(a,b) 表示不同MRI图像检测左心室结果，(c,d)两图表示超声心动图的ME4C切面的左心室、二尖瓣环、心内膜垫和心尖位置及旋转角度的检测结果。}
+\includegraphics[height= 30mm,width=0.9\textwidth]{ch05_04}
+\caption[医学图像目标检测结果示意图]{(a,b) 表示不同MRI图像检测左心室结果，(c,d)两图表示超声心动图的ME4C切面的左心室、二尖瓣环、心内膜垫和心尖位置及旋转角度的检测结果。}
 \label{fig:ch05_04}
 \end{figure} 	                         
  

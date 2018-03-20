@@ -23,6 +23,7 @@ $RECYCLE.BIN/
 *.lot
 *.synctex.gz
 *.lof
+Thesis.pdf
 
 # Windows shortcuts
 *.lnk

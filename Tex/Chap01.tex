@@ -38,7 +38,7 @@ Marr\citep{Marr1982Vision}定义了计算机视觉研究的三个层次，自底
     \centering
     %trim option's parameter order: left bottom right top
     %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-    \includegraphics[width=0.85\textwidth]{ch01_01}
+    \includegraphics[width=0.9\textwidth]{ch01_01}
     \caption{David Marr视觉计算理论的分层结构示意图}
     \label{fig:ch01_01}
 \end{figure}
@@ -49,19 +49,19 @@ Marr\citep{Marr1982Vision}定义了计算机视觉研究的三个层次，自底
     \centering
     %trim option's parameter order: left bottom right top
     %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-    \includegraphics[width=0.85\textwidth]{ch01_02}
+    \includegraphics[width=0.9\textwidth]{ch01_02}
     \caption{局部特征结合机器学习的机器视觉代表性方法举例}
     \label{fig:ch01_02}
 \end{figure}
 
 进入新世纪后，互联网产生了海量图像数据，大规模数据集也随之出现，导致面向描述符的机器学习方法开始盛行，之前需通过规则、知识或统计模型设计形状、颜色、纹理等先验表征，易受额外影响不具有统计不变性，通过统计手段寻找能够刻画对象最本质的一些局部特征，其进展直接导致诸多应用的出现，如：图像搜索技术进入实用。目标识别领域涌现出空间金字塔（Spatial Pyramids）\citep{Lazebnik2006}、矢量量化（Vector Quantization）\citep{Yang2009b}，以及在计算机视觉的各个阶段使用的各种机器学习工具。Lowe\citep{Lowe2004}提出旋转和尺度不变的局部特征描述符（ Scale Inrariant Feature Transform,SIFT），改进后成为模式识别中的经典模型。Viola和Jones\citep{Viola2001}提出基于哈尔特征和级联Adaboost分类器人脸检测框架；Grauman等\citep{Grauman2005}发展了词袋模型（Bag of Word，Bow）用于图像物体识别；Dala等\citep{Dalal2005}提出方向梯度直方图（Hog）特征，利用变形部件模型结合支持向量机进行行人检测。因此，从完全由人类设计的系统转变为由使用计算机提取示例数据进行训练获得特征向量的的系统，计算机算法决定了高维特征空间中的最佳决策边界，设计此类系统的关键步骤是从图像中提取判别特征，该过程仍然是由人类手工设计完成的。
 
-故合理的下一步就是让计算机自动从数据学习最佳特征表示，如图\ref{fig:ch01_03}揭示了手动设计特征的传统方法与自动提取特征的深度学习方法的区别，模型由多层组成，将输入数据转换为输出（例如疾病存在/不存在），同时学习更高层次的特征。目前最成功的图像分析模型是卷积神经网络（convolutional neural networks，CNN），Fukushima早在1980年就提出有关CNN的工作\citep{Fukushima1982Neocognitron}。LeCun等\citep{Lecun1990Handwritten}提出的LeNet是在手写数字识别领域的第一个成功的实际应用。在医学图像处理中，GPU首先被引入用于分割，重建和配准，然后被用于机器学习。但在开发各种新技术以有效地训练深度网络之前，CNN在计算机视觉领域并没太成功。分水岭是Krizhevsky等人\citep{Krizhevsky2012}在2012年12月参加ImageNet\citep{Russakovsky}识别竞赛挑战做出的贡献，提出AlexNet大幅度（领先10\%）赢得该竞赛。随后，使用相关但更深的架构取得了进一步的进展\citep{Simonyan2014a,Szegedy2015,he15}。在计算机视觉各个任务领域，深度卷积神经网络现在已经成为首要选择的技术。
+故合理的下一步就是让计算机自动从数据学习最佳特征表示，如图\ref{fig:ch01_03}揭示了手动设计特征的传统方法与自动提取特征的深度学习方法的区别，模型由多层组成，将输入数据转换为输出（例如疾病存在/不存在），同时学习更高层次的特征。目前最成功的图像分析模型是卷积神经网络（convolutional neural networks，CNN），Fukushima早在1980年就提出有关CNN的工作\citep{Fukushima1982Neocognitron}。LeCun等\citep{Lecun1990Handwritten}提出的LeNet是在手写数字识别领域的第一个成功的实际应用。在医学图像处理中，GPU首先被引入用于分割，重建和配准，然后被用于机器学习。但在开发各种新技术以有效地训练深度网络之前，CNN在计算机视觉领域并没太成功。分水岭是Krizhevsky等人\citep{Krizhevsky2012}在2012年12月参加ImageNet\citep{Deng2009ImageNet}识别竞赛挑战做出的贡献，提出AlexNet大幅度（领先10\%）赢得该竞赛。随后，使用相关但更深的架构取得了进一步的进展\citep{Simonyan2014a,Szegedy2015,he15}。在计算机视觉各个任务领域，深度卷积神经网络现在已经成为首要选择的技术。
 \begin{figure}[!htbp]
     \centering
     %trim option's parameter order: left bottom right top
     %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-    \includegraphics[width=0.85\textwidth]{ch01_03}
+    \includegraphics[width=0.9\textwidth]{ch01_03}
     \caption{传统图像识别方法与深度学习方法对比}
     \label{fig:ch01_03}
 \end{figure}
@@ -74,7 +74,7 @@ Marr\citep{Marr1982Vision}定义了计算机视觉研究的三个层次，自底
     \centering
     %trim option's parameter order: left bottom right top
     %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-    \includegraphics[width=0.85\textwidth]{ch01_04}
+    \includegraphics[height=80mm,width=0.9\textwidth]{ch01_04}
     \caption{统计机器学习方法分类总结}
     \label{fig:ch01_04}
 \end{figure}
@@ -82,39 +82,49 @@ Marr\citep{Marr1982Vision}定义了计算机视觉研究的三个层次，自底
 \subsection{深度学习在医学图像分析应用的研究现状}
 
 
-医学影像分析界业已注意到当前从使用手工设计特征转换到从数据中学习特征的关键进展，在AlexNet突破之前，依据模型结构深浅和监督与非监督四个维度度现有机器学习方法进行归类（如图\ref{fig:ch01_04}）。通过对有限样本统计理论、和VC维泛化能力等机器学习理论的研究，相继提出了各种各样的浅层机器学习模型，如支持向量机（Support Vector Machines，SVM）、 集成学习（Boosting）、稀疏编码（Sparse Coding）等，这些模型基本上视作只有有一层隐层节点（如SVM、Boosting）的浅层神经网络，神经网络和深度学习背后神经科学的基本理念如上节所述，受限于计算力起初的神经网络通常只有几层，由于理论分析的难度大，训练方法又需要很多经验和技巧，这个时期浅层人工神经网络反而相对沉寂。这些模型无论是在理论分析还是实际应用于医学图像分析中都获得了不小的成功，特别是用于检测异常情况，而且还用于分割等相关领域。尽管有这些发展，但检测的假阳性率相对较高。
+医学影像分析界业已注意到当前从使用手工设计特征转换到从数据中学习特征的关键进展，在AlexNet突破之前，依据模型结构深浅和监督与非监督四个维度度现有机器学习方法进行归类（如图\ref{fig:ch01_04}）。通过对有限样本统计理论、和VC维泛化能力等机器学习理论的研究，相继提出了各种各样的浅层机器学习模型，如支持向量机（Support Vector Machines，SVM）、 集成学习（Boosting）、稀疏编码（Sparse Coding）等，这些模型基本上可视作只有有一层隐层节点（如SVM、Boosting）的浅层神经网络，神经网络和深度学习背后神经科学的基本理念如上节所述。这些模型无论是在理论分析还是实际应用于医学图像分析中都获得了不小的成功，特别是用于检测异常情况，而且还用于分割等相关领域。尽管有这些发展，但检测的假阳性率相对较高。受限于计算力早期的神经网络通常只有几层，由于理论分析的难度大，训练方法又需要很多经验和技巧，这个时期浅层人工神经网络研究反而相对沉寂。
 
-自2006年hiton等\citep{Hinton2006a}提出深度学习以来，方兴未艾的深度学习真正改变了计算机视觉之前的定义，它正在成为计算机视觉领域最优的机器学习工具。特别是卷积神经网络已被证明是广泛的计算机视觉任务的强大工具。世界各地的医学图像分析团队正在迅速进入该领域，并将CNN和其他深度学习方法应用于各种各样的应用，令人鼓舞的结果正不断涌现，如图\ref{fig:ch01_05}，从左上到右下依次为：乳房X线图像质量分类\citep{Sickles2006Use}，大脑病灶分割（\citep{Abr2016Improved}），气道树分割中的泄漏检测 \citep{Charbonnier2016Improving}，视网膜病变分类（Kaggle糖尿病视网膜病变图像）\citep{Grinsven2016Fast}，前列腺分割，结节分型，淋巴结中的乳腺癌转移检测，皮肤病变分类\citep{Esteva2017Dermatologist}和来自Yang等人\citep{Yang2016Cascade}的X射线骨骼抑制技术。文献\citep{Litjens2017Asurvey,Shen2017a,Greenspan2016}对深度学习应用于医学图像分析做了专门综述。
+自2006年hiton等\citep{Hinton2006a}提出深度学习以来，方兴未艾的深度学习真正改变了计算机视觉之前的定义，它正在成为计算机视觉领域机器学习工具最优的选择之一。特别是卷积神经网络已被证明是众多计算机视觉任务的强大工具。世界各地的医学图像分析团队正在迅速进入该领域，并将其和其他深度学习方法应用于各种各样的应用，令人鼓舞的结果正不断涌现，如图\ref{fig:ch01_05}，从左上到右下依次为：乳房X线图像质量分类\citep{Sickles2006Use}，大脑病灶分割（\citep{Abr2016Improved}），气道树分割中的泄漏检测 \citep{Charbonnier2016Improving}，视网膜病变分类（Kaggle糖尿病视网膜病变图像）\citep{Grinsven2016Fast}，前列腺分割，结节分型，淋巴结中的乳腺癌转移检测，皮肤病变分类\citep{Esteva2017Dermatologist}和来自Yang等人\citep{Yang2016Cascade}的X射线骨骼抑制技术。文献\citep{Litjens2017Asurvey,Shen2017a,Greenspan2016}对深度学习应用于医学图像分析做了专门综述。
 
 \begin{figure}[!htbp]
     \centering
     %trim option's parameter order: left bottom right top
     %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-    \includegraphics[width=0.85\textwidth]{ch01_05}
+    \includegraphics[height=90mm,width=0.9\textwidth]{ch01_05}
    \caption{应用深度学习的一些医学影像图集}
    \label{fig:ch01_05}
 \end{figure}
 
 \subsubsection{分类识别}
 
-图像识别分类是深度学习对医学图像分析做出贡献的首要领域之一，尤其是对自然图像进行预训练的CNN已经显示出惊人效果，在一些任务中超过了人类。相关研究表明可以调整CNN以利用医学图像的内在结构，Chen等\citep{Chen2015}利用CNN结合领域知识，在胎儿超声心动图标准切面的自动识别问题中取得良好的识别效果。Bar等\citep{Bar2015Chest}利用自然图像训练的模型对胸腔X-射线图像进行特征提取并结合全局特征\citep{Oliva2001}得到最优检测结果。Margeta等\citep{Margeta2015}针对心脏核磁共振图像利用微调迁移从自然图像学习的模型。总之与图像分类相比，医学对象分类较少使用预先训练的网络，这主要是由于当前卷积网络较难结合上下文或三维信息。
+图像识别分类是深度学习对医学图像分析做出贡献的首要领域之一，尤其是对自然图像进行预训练的CNN已经显示出惊人效果，在一些任务中超过了人类。相关研究表明可以调整CNN以利用医学图像的内在结构，Chen等\citep{Chen2015}利用CNN结合领域知识，在胎儿超声心动图标准切面的自动识别问题中取得良好的识别效果。Bar等\citep{Bar2015Chest}利用自然图像训练的模型对胸腔X-射线图像进行特征提取并结合全局特征\citep{Oliva2001}得到最优检测结果。Margeta等\citep{Margeta2015}针对心脏核磁共振图像利用微调迁移从自然图像学习的模型。总之与自然图像分类相比，医学对象分类较多使用预先训练的网络模型，这主要是缺乏高质量标注的医学数据集，且当前卷积网络较难高效结合上下文或三维信息。
 
 \subsubsection{病变检测} 
 
-计算机辅助检测在医学图像分析领域是一个非常成熟的任务，解剖对象定位（空间或时间），例如器官或标记，一直是分割任务或治疗计划和干预的临床工作流程中的重要预处理步骤。传统CAD\citep{Van2011Computer}通过监督方法或经典的图像处理技术（如滤波和数学形态学）检测候选区域，各阶段通常是分离开的，并常由手工设计的特征来描述，分类器用于将特征向量映射到实际病变的概率。深度学习采用直接以一个以候选病灶为中心的图像数据区域进行操作，训练一个端到端的CNN。如利用深度卷积网络进行显微镜图像中细胞检测\citep{Akram2016}、结合深度全卷积网络的MRI心室检测与分割\citep{Emad2015,Tran2016a}和超声图像解剖结构的检测\citep{Chen2016i}。Roth等人\citep{Roth2016}使用CNN改进三个现有的CAD用于CT结肠镜检查的结肠息肉，体部CT上的硬化性脊柱转移以及体部CT上的肿大淋巴结的检测。
-医学成像中的定位通常需要解析3D体积，为了用深度学习算法解决3D数据解析，已经提出了几种将3D空间视为二维正交平面组合的方法，Setio等人\citep{Setio2016Pulmonary}检测在3D胸部CT扫描中的肺结节，使用不同CNN的组合来对每个候选区域进行分类。相关综述请参考文献\citep{Shin2016}。总之与分类识别问题类似，直接解决特定于对象检测的问题，如类不平衡/硬阴影挖掘或图像的有效像素/体素处理仍是个挑战。
+CAD在医学图像分析领域是一个非常成熟的任务，解剖对象定位（空间或时间），例如定位器官或标记点，一直是分割任务或制定治疗计划等临床工作流程中的重要预处理步骤。传统CAD\citep{Van2011Computer}通过监督方法或经典的图像处理技术（如滤波和数学形态学）检测候选区域，各阶段通常是分离开的，并常由手工设计的特征来描述，分类器用于将特征向量映射到实际病变的概率。深度学习采用直接以一个以候选病灶为中心的图像数据区域进行操作，训练一个端到端的CNN。如利用深度卷积网络进行显微镜图像中细胞检测\citep{Akram2016}、结合深度全卷积网络的MRI心室检测与分割\citep{Emad2015,Tran2016a}和超声图像解剖结构的检测\citep{Chen2016i}。Roth等人\citep{Roth2016}使用CNN改进三个现有的CAD用于CT结肠镜检查的结肠息肉，体部CT上的硬化性脊柱转移以及体部CT上的肿大淋巴结的检测。
+医学成像中的定位通常需要解析3D体积，为了用深度学习算法解决3D数据解析，已经提出了几种将3D空间视为二维正交平面组合的方法，Setio等人\citep{Setio2016Pulmonary}检测在3D胸部CT扫描中的肺结节，使用不同CNN的组合来对每个候选区域进行分类。相关综述请参考文献\citep{Shin2016}。总之与分类识别问题类似，直接解决特定对象检测的问题，需处理如类不平衡、图像的有效像素或体素处理仍是个挑战。
 
 \subsubsection{分割和形状建模}
 
 医学图像中的器官和结构的分割允许定量分析与体积和形状有关的临床参数，它往往是计算机辅助检测的第一步。例如心脏或大脑分中，分割的任务通常被定义为识别组成感兴趣对象的轮廓或内部的体素集。分割是应用医学成像深度学习的论文中最常见的主题，因此也在深度学习方法学中广泛应用，包括开发独特的基于CNN的分割网络结构以及应用循环神经网络（Recurrent Neural Networks,RNNs）进行分割和形状建模。
 
-这些新型CNN架构中最代表性的是由Ronneberger等人\citep{Ronneberger2015}提出的U-net，将上采样和下采样层的组合，将它们与反卷积和反褶积层之间的所谓跳跃连接相结合，从而直接产生分割图。Milletari等人\citep{Milletari2016}提出了一种称为V-net的U-net架构的三维变体。RNN最近在分割任务中变得越来越流行。例如，Xie等人\citep{xie2016}使用空间RNN在组织病理学图像中分割肌束膜。Stollenga等人\citep{cortes2015}首次在6个方向上使用带有卷积层的3D LSTM-RNN。此外，基于深度学习的特征点定位方法\citep{Trigeorgis2016}在形状建模方面也取得令人瞩目的结果。总而言之，医学影像的细分已经引起了深度学习相关方法的大量涌入，一般需直接针对特定分割任务自定义网络结构，相关综述请参考文献\citepns{Zhang2017a}。
+这些新型CNN架构中最代表性的是由Ronneberger等人\citep{Ronneberger2015}提出的U-Net，将上采样和下采样层的组合，将它们与反卷积和反褶积层之间的所谓跳跃连接相结合，从而直接产生分割图。Milletari等人\citep{Milletari2016}提出了一种称为V-Net的U-Net架构的三维变体。RNN最近在分割任务中变得越来越流行。例如，Xie等人\citep{xie2016}使用空间RNN在组织病理学图像中分割肌束膜。Stollenga等人\citep{cortes2015}首次在6个方向上使用带有卷积层的3D RNNs。此外，基于深度学习的特征点定位方法\citep{Trigeorgis2016}在形状建模方面也取得令人瞩目的结果。总而言之，医学影像的各个细分领域中深度学习相关方法都大量涌入。但一般需直接针对特定分割任务自定义网络结构，相关综述请参考文献\citepns{Zhang2017a}。
 
 \subsubsection{新颖的应用和其他医学分析任务}
 \label{sec:applications_various}
 
-在医学图像的配准、基于内容的医学图像检索、图像重建生成和对比增强、融合图像和文本报告、基因组学和医药领域均能找到深度学习的身影，相关综述文献请参考\citepns{Litjens2017Asurvey}。如Kallenberg等\citep{Kallenberg2016Unsupervised}利用无监督的特征学习用于乳房X线照相术，解决乳房密度分割和对乳房X线照片纹理进行风险评分。Yan等\citep{Yan2016Multi}设计了一个多阶段的深度学习回归框架用于图像分类并应用于身体部位识别，它通过多学科的深度学习自动发现了不合理和无信息的局部斑块。苗等人\citep{Miao2016A}提出了一种CNN回归方法，用于实时2-D和3-D配准。Golkov等人\citep{Golkov2016q}提供应用DL将扩散MRI数据处理减少到单个优化步骤，证明通过使用DNN在逐个体素的基础上的微观结构预测以及健康和损伤组织自动化的无模型分割，展示如何通过深度学习来简化经典数据处理。
+在医学图像的配准、基于内容的医学图像检索、图像重建生成和对比增强、融合图像和文本报告、基因组学和医药领域均能找到深度学习的身影，相关综述文献请参考\citepns{Litjens2017Asurvey}。如Kallenberg等\citep{Kallenberg2016Unsupervised}利用无监督的特征学习用于乳房X线照相术，解决乳房密度分割和对乳房X线照片纹理进行风险评分。Yan等\citep{Yan2016Multi}设计了一个多阶段的深度学习回归框架用于图像分类并应用于身体部位识别，它通过多学科的深度学习自动发现了不合理和无信息的局部斑块。苗等人\citep{Miao2016A}提出了一种CNN回归方法，用于实时2-D和3-D配准。Golkov等人\citep{Golkov2016q}提供应用DL将扩散MRI数据处理减少到单个优化步骤，阐明通过使用DNN在逐个体素的基础上的微观结构预测以及健康和损伤组织自动化的无模型分割，展示如何通过深度学习来简化经典数据处理。
+\subsubsection{相关软硬件平台}
+GPU和GPU计算库（CUDA，OpenCL）的广泛应用促成了深度学习急剧上升的主要原因之一。GPU是高度并行计算引擎，其执行线程数量比中央处理器（CPU）多一个数量级。使用目前的硬件，深度学习GPU的速度通常比CPU快10到30倍。FPGA和定制的深度学习芯片也获得了相当的关注。
 
+除硬件之外，深度学习方法普及的另一推动力是开源软件库和共享深度模型的广泛可用性。这些库提供了神经网络中重要操作（如卷积、循环网络）的高效GPU实现方便用户使用。当前流行的软件包是（按字母顺序）：
+\begin{itemize}
+ \item {\bf Caffe} \citep{Jia2014}. 提供C ++和Python接口，由加州大学伯克利分校的研究生开发。
+ \item {\bf Tensorflow} \citep{Abadi2016TensorFlow}. 由Google开发提供C ++，Python和接口.
+ \item {\bf Theano} \citep{AlRfou2016Theano}. 提供由蒙特利尔MILA实验室开发的Python库。
+ \item {\bf Mxnet} \citep{Chen2015mxnet}. 提供一个python和C++接口，是亚马逊的云平台默认深度学习引擎  
+\end{itemize}
+ 
 \subsubsection{趋势及挑战}
 
 深度学习已经渗透到医学影像分析的各个方面，深度学习在医学图像分析中的应用文献首先出现在各种研讨会和会议上（MICCAI，SPIE，ISBI和EMBC等），然后在期刊中出现。该主题现已在主要会议和医学影像分析期刊中占据主导地位。收益于深度学习算法的突破以及现代GPU高效并行计算能力的提升，引起了巨大的商业兴趣。通用电气，西门子和飞利浦都将深度学习算法整合到成像设备和图像处理系统中以加速自动化定位分割解剖结构，以大大加快工作流程并消除了互操作性差异的问题，或执行自动量化。诸多创业医学影像公司，比如美国的Enlitic和国内的DeepCare，同样使用AI快速筛选海量大数据，或者提供即时的临床决策支持。
@@ -154,8 +164,6 @@ Marr\citep{Marr1982Vision}定义了计算机视觉研究的三个层次，自底
 
 第五章分析了本文提出的基于区域卷积神经网络的心室检测算法。首先，分析了检测算法的形式化定义，概述了物体检测的演进；之后列出了对候选区域生成网络的改进检测物体朝向；并结合带朝向的多任务损失函数进行困难样例挖掘；然后详细从MRI及超声二维数据全面验证本文检测方法的有效性和鲁棒性。
 
-第六章分析了本文提出的基于Encoder-Decoder 网络的去躁算法。首先，分析了本章算法的相关工作；之后列出了提出方法的主要内容；最后实验验证了提出方法的有效性。
-
-第七章介绍了基于卷积神经网络的形状对齐算法。首先，指出初始位置定位和特征点标注方法，即要解决定位检测问题；之后列出了如何结合卷积神经网络特征的AAM模型与CLM模型；然后详细介绍了基于不同特征的分割结果。
+第六章分析了本文提出的基于Encoder-Decoder 网络的去躁算法。首先，分析了本章算法的相关工作；之后列出了提出方法的主要内容；最后实验验证了提出方法的有效性;介绍了基于卷积神经网络的形状对齐算法。首先，指出初始位置定位和特征点标注方法，即要解决定位检测问题；之后列出了如何结合卷积神经网络特征的AAM模型与CLM模型；然后详细介绍了基于不同特征的分割结果。
 
 最后总结全文，并展望了未来的研究工作。

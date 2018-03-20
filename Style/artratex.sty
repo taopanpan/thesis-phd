@@ -258,9 +258,9 @@
 \RequirePackage{graphicx}% packages for including graphics
 \RequirePackage[font=small,skip=8pt,labelsep=space]{caption}% options: [margin=10pt,labelfont=bf]
 \RequirePackage{subcaption}% package for subfigures
-\RequirePackage{bicaption}% package for binary captions
-\captionsetup[figure][bi-second]{name=Figure}% the second figure caption name
-\captionsetup[table][bi-second]{name=Table}% the second table caption name
+%\RequirePackage{bicaption}% package for binary captions
+\captionsetup[figure]{name=Figure}% the second figure caption name [bi-second]
+\captionsetup[table]{name=Table}% the second table caption name [bi-second]
 \RequirePackage[section]{placeins}% prevent floats from being moved over section
 %-
 %-> Page layout and spacing
@@ -327,7 +327,7 @@
 \hypersetup{% set hyperlinks
     %bookmarks=true,% show bookmarks bar
     pdfencoding=auto,% allows non-Latin based languages in bookmarks
-    %pdftitle={},% title
+    pdftitle={},% title
     %pdfauthor={},% author
     %pdfsubject={},% subject
     %pdftoolbar=true,% show toolbar

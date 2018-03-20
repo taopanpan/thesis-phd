@@ -1,4 +1,4 @@
-\begin{thebibliography}{172}
+\begin{thebibliography}{177}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{#1}
 \providecommand{\href}[2]{\url{#2}}
@@ -13,6 +13,12 @@ KRIZHEVSKY A, SUTSKEVER I, HINTON G~E.
   Networks}\allowbreak[C]//\allowbreak{}Advances In Neural Information
   Processing Systems.
 \newblock 2012: 1--9.
+
+\bibitem[Hoiem\ et~al.(2012)Hoiem, Chodpathumwan, and Dai]{Hoiem2012}
+HOIEM D, CHODPATHUMWAN Y, DAI Q.
+\newblock {Diagnosing error in object detectors}\allowbreak[J].
+\newblock Lect. Notes Comput. Sci., 2012, 7574 LNCS\penalty0 (PART 3):
+  340--353.
 
 \bibitem[Lambin\ et~al.(2015)Lambin, Rios-velazquez, Leijenaar, Carvalho,
   Granton, Zegers, Gillies, Boellard, Moffitt, Hill, Jain, Takemoto, Silver,
@@ -110,7 +116,7 @@ LECUN Y.
 \newblock Advances in Neural Information Processing Systems, 1990, 2: 396--404.
 
 \bibitem[Russakovsky\ et~al.(2015)Russakovsky, Deng, Su, Krause, Satheesh, Ma,
-  Huang, Karpathy, Khosla, Bernstein, Berg, and Fei-Fei]{Russakovsky}
+  Huang, Karpathy, Khosla, Bernstein, Berg, and Fei-Fei]{Deng2009ImageNet}
 RUSSAKOVSKY O, DENG J, SU H, et~al.
 \newblock {ImageNet Large Scale Visual Recognition Challenge}\allowbreak[J].
 \newblock International Journal of Computer Vision, 2015, 115\penalty0 (3):
@@ -400,11 +406,45 @@ GOLKOV V, DOSOVITSKIY A, SPERL J~I, et~al.
 \newblock IEEE Transactions on Medical Imaging, 2016, 35\penalty0 (5):
   1344--1351.
 
+\bibitem[Jia\ et~al.(2014)Jia, Shelhamer, Donahue, Karayev, Long, Girshick,
+  Guadarrama, and Darrell]{Jia2014}
+JIA Y, SHELHAMER E, DONAHUE J, et~al.
+\newblock {Caffe: Convolutional Architecture for Fast Feature
+  Embedding}\allowbreak[J/OL].
+\newblock Proceedings of the ACM International Conference on Multimedia, 2014:
+  675--678.
+
+\bibitem[Abadi\ et~al.(2016)Abadi, Barham, Chen, and Chen]{Abadi2016TensorFlow}
+ABADI M, BARHAM P, CHEN J, et~al.
+\newblock Tensorflow: A system for large-scale machine
+  learning\allowbreak[C]//\allowbreak{}OSDI.
+\newblock [S.l.: s.n.], 2016.
+
+\bibitem[Al-Rfou'\ et~al.(2016)Al-Rfou', Alain, Almahairi, and
+  Angerm{\"u}ller]{AlRfou2016Theano}
+AL-RFOU' R, ALAIN G, ALMAHAIRI A, et~al.
+\newblock Theano: A python framework for fast computation of mathematical
+  expressions\allowbreak[J].
+\newblock CoRR, 2016, abs/1605.02688.
+
+\bibitem[Chen\ et~al.(2015{\natexlab{b}})Chen, Li, Li, Lin, Wang, Wang, Xiao,
+  Xu, Zhang, and Zhang]{Chen2015mxnet}
+CHEN T, LI M, LI Y, et~al.
+\newblock Mxnet: A flexible and efficient machine learning library for
+  heterogeneous distributed systems\allowbreak[J].
+\newblock CoRR, 2015, abs/1512.01274.
+
+\bibitem[Hornik\ et~al.(1989)Hornik, Stinchcombe, and White]{Hornik1989}
+HORNIK K, STINCHCOMBE M, WHITE H.
+\newblock {Multilayer feedforward networks are universal
+  approximators}\allowbreak[J].
+\newblock Neural Networks, 1989, 2\penalty0 (5): 359--366.
+
 \bibitem[Jarrett\ et~al.(2009)Jarrett, Kavukcuoglu, Ranzato, and
   LeCun]{Jarrett2009}
 JARRETT K, KAVUKCUOGLU K, RANZATO M, et~al.
 \newblock {What is the best multi-stage architecture for object
-  recognition?}\allowbreak[C/OL]//\allowbreak{}Proceedings of the IEEE
+  recognition}\allowbreak[C/OL]//\allowbreak{}Proceedings of the IEEE
   International Conference on Computer Vision.
 \newblock 2009: 2146--2153.
 
@@ -419,6 +459,22 @@ IOFFE S, SZEGEDY C.
 LIN M, CHEN Q, YAN S.
 \newblock {Network In Network}\allowbreak[J/OL].
 \newblock arXiv preprint, 2013: 10.
+
+\bibitem[Prasoon\ et~al.(2013)Prasoon, Petersen, Igel, Lauze, Dam, and
+  Nielsen]{Prasoon2013Deep}
+PRASOON A, PETERSEN K, IGEL C, et~al.
+\newblock Deep feature learning for knee cartilage segmentation using a
+  triplanar convolutional neural network.\allowbreak[C]//\allowbreak{}Medical
+  Image Computing \& Computer-assisted Intervention: Miccai International
+  Conference on Medical Image Computing \& Computer-assisted Intervention.
+\newblock [S.l.: s.n.], 2013: 246--253.
+
+\bibitem[Roth\ et~al.(2014)Roth, Lu, Seff, Cherry, Hoffman, Wang, Liu, Turkbey,
+  and Summers]{Roth2014A}
+ROTH H~R, LU L, SEFF A, et~al.
+\newblock A new 2.5d representation for lymph node detection using random sets
+  of deep convolutional neural network observations.\allowbreak[J].
+\newblock Med Image Comput Assist Interv., 2014, 17\penalty0 (1): 520--527.
 
 \bibitem[Kamnitsas\ et~al.(2017)Kamnitsas, Ledig, Newcombe, Simpson, Kane,
   Menon, Rueckert, and Glocker]{Kamnitsas2017}
@@ -449,22 +505,6 @@ SONG Y, ZHANG L, CHEN S, et~al.
   multiscale convolutional network and graph partitioning.\allowbreak[J].
 \newblock IEEE transactions on bio-medical engineering, 2015, 62\penalty0 (10):
   2421.
-
-\bibitem[Prasoon\ et~al.(2013)Prasoon, Petersen, Igel, Lauze, Dam, and
-  Nielsen]{Prasoon2013Deep}
-PRASOON A, PETERSEN K, IGEL C, et~al.
-\newblock Deep feature learning for knee cartilage segmentation using a
-  triplanar convolutional neural network.\allowbreak[C]//\allowbreak{}Medical
-  Image Computing \& Computer-assisted Intervention: Miccai International
-  Conference on Medical Image Computing \& Computer-assisted Intervention.
-\newblock [S.l.: s.n.], 2013: 246--253.
-
-\bibitem[Roth\ et~al.(2014)Roth, Lu, Seff, Cherry, Hoffman, Wang, Liu, Turkbey,
-  and Summers]{Roth2014A}
-ROTH H~R, LU L, SEFF A, et~al.
-\newblock A new 2.5d representation for lymph node detection using random sets
-  of deep convolutional neural network observations.\allowbreak[J].
-\newblock Med Image Comput Assist Interv., 2014, 17\penalty0 (1): 520--527.
 
 \bibitem[Shelhamer\ et~al.(2017)Shelhamer, Long, and Darrell]{Long2017Fully}
 SHELHAMER E, LONG J, DARRELL T.
@@ -517,33 +557,67 @@ GOODFELLOW I~J, POUGET-ABADIE J, MIRZA M, et~al.
 \newblock Generative adversarial nets\allowbreak[J].
 \newblock Advances in Neural Information Processing Systems, 2014: 2672--2680.
 
-\bibitem[Jia\ et~al.(2014)Jia, Shelhamer, Donahue, Karayev, Long, Girshick,
-  Guadarrama, and Darrell]{Jia2014}
-JIA Y, SHELHAMER E, DONAHUE J, et~al.
-\newblock {Caffe: Convolutional Architecture for Fast Feature
-  Embedding}\allowbreak[J/OL].
-\newblock Proceedings of the ACM International Conference on Multimedia, 2014:
-  675--678.
+\bibitem[Maas\ et~al.(2013)Maas, Hannun, and Ng]{Maas2013}
+MAAS A~L, HANNUN A~Y, NG A~Y.
+\newblock {Rectifier Nonlinearities Improve Neural Network Acoustic
+  Models}\allowbreak[C/OL]//\allowbreak{}Proceedings of the 30 th International
+  Conference on Machine Learning: volume~28.
+\newblock 2013: 6.
 
-\bibitem[Abadi\ et~al.(2016)Abadi, Barham, Chen, and Chen]{Abadi2016TensorFlow}
-ABADI M, BARHAM P, CHEN J, et~al.
-\newblock Tensorflow: A system for large-scale machine
-  learning\allowbreak[C]//\allowbreak{}OSDI.
-\newblock [S.l.: s.n.], 2016.
+\bibitem[Xu\ et~al.(2015)Xu, Wang, Chen, and Li]{xu2015ecirical}
+XU B, WANG N, CHEN T, et~al.
+\newblock {Empirical Evaluation of Rectified Activations in Convolutional
+  Network}\allowbreak[J/OL].
+\newblock arXiv preprint, 2015.
 
-\bibitem[Al-Rfou'\ et~al.(2016)Al-Rfou', Alain, Almahairi, and
-  Angerm{\"u}ller]{AlRfou2016Theano}
-AL-RFOU' R, ALAIN G, ALMAHAIRI A, et~al.
-\newblock Theano: A python framework for fast computation of mathematical
-  expressions\allowbreak[J].
-\newblock CoRR, 2016, abs/1605.02688.
+\bibitem[Clevert\ et~al.(2015)Clevert, Unterthiner, and
+  Hochreiter]{Clevert2015}
+CLEVERT D~A, UNTERTHINER T, HOCHREITER S.
+\newblock {Fast and Accurate Deep Network Learning by Exponential Linear Units
+  (ELUs)}\allowbreak[J/OL].
+\newblock International Conference on Learning Representations, 2015\penalty0
+  (1997): 1--14.
 
-\bibitem[Chen\ et~al.(2015{\natexlab{b}})Chen, Li, Li, Lin, Wang, Wang, Xiao,
-  Xu, Zhang, and Zhang]{Chen2015mxnet}
-CHEN T, LI M, LI Y, et~al.
-\newblock Mxnet: A flexible and efficient machine learning library for
-  heterogeneous distributed systems\allowbreak[J].
-\newblock CoRR, 2015, abs/1512.01274.
+\bibitem[Shaham\ et~al.(2017)Shaham and Lederman]{Shaham2017Learning}
+SHAHAM U, LEDERMAN R~R.
+\newblock Learning by coincidence: Siamese networks and common variable
+  learning\allowbreak[J].
+\newblock Pattern Recognition, 2017.
+
+\bibitem[Zhu\ et~al.(2016)Zhu, Long, Wang, and Cao]{Zhu2016b}
+ZHU H, LONG M, WANG J, et~al.
+\newblock {Deep Hashing Network for Efficient Similarity
+  Retrieval}\allowbreak[C]//\allowbreak{}Proceedings of the 30th Conference on
+  Artificial Intelligence (AAAI 2016): number~1.
+\newblock [S.l.: s.n.], 2016: 2415--2421.
+
+\bibitem[Glorot\ et~al.(2010)Glorot and Bengio]{Glorot2010}
+GLOROT X, BENGIO Y.
+\newblock {Understanding the difficulty of training deep feedforward neural
+  networks}\allowbreak[J/OL].
+\newblock Proceedings of the 13th International Conference on Artificial
+  Intelligence and Statistics (AISTATS), 2010, 9: 249--256.
+
+\bibitem[Kingma\ et~al.(2014{\natexlab{a}})Kingma and Ba]{Kingma2014Adam}
+KINGMA D, BA J.
+\newblock Adam: A method for stochastic optimization\allowbreak[J].
+\newblock Eprint Arxiv, 2014.
+
+\bibitem[Srivastava\ et~al.(2014)Srivastava, Hinton, Krizhevsky, Sutskever, and
+  Salakhutdinov]{Srivastava2014a}
+SRIVASTAVA N, HINTON G, KRIZHEVSKY A, et~al.
+\newblock {Dropout: A Simple Way to Prevent Neural Networks from
+  Overfitting}\allowbreak[J/OL].
+\newblock Journal of Machine Learning Research, 2014, 15\penalty0 (2):
+  1929--1958.
+
+\bibitem[Wan\ et~al.(2013)Wan, Zeiler, Zhang, Cun, and
+  Fergus]{Wan2013Regularization}
+WAN L, ZEILER M, ZHANG S, et~al.
+\newblock Regularization of neural networks using
+  dropconnect\allowbreak[C]//\allowbreak{}International Conference on Machine
+  Learning.
+\newblock [S.l.: s.n.], 2013: 1058--1066.
 
 \bibitem[Ebadollahi\ et~al.(2004)Ebadollahi, Chang, and Wu]{Ebadollahi2004}
 EBADOLLAHI S, CHANG S~F~C~S~F, WU H.
@@ -605,13 +679,13 @@ RAZAVIAN A~S, AZIZPOUR H, SULLIVAN J, et~al.
   on Computer Vision and Pattern Recognition Workshops.
 \newblock 2014: 512--519.
 
-\bibitem[Simonyan\ et~al.(2014{\natexlab{a}})Simonyan, Vedaldi, and
+\bibitem[Simonyan\ et~al.(2014)Simonyan, Vedaldi, and
   Zisserman]{simonyan14deep}
 SIMONYAN K, VEDALDI A, ZISSERMAN A.
 \newblock {Deep Inside Convolutional Networks Visualising Image Classification
   Models and Saliency Maps}\allowbreak[C/OL]//\allowbreak{}Int. Conf. Learn.
   Represent.
-\newblock 2014{\natexlab{a}}: 1--8.
+\newblock 2014: 1--8.
 
 \bibitem[Mahendran\ et~al.(2015)Mahendran and Vedaldi]{Mahendran2015}
 MAHENDRAN A, VEDALDI A.
@@ -880,18 +954,6 @@ ANDREOPOULOS A, TSOTSOS J~K.
   appearance for analysis of cardiac MRI}\allowbreak[J].
 \newblock Medical Image Analysis, 2008, 12\penalty0 (3): 335--357.
 
-\bibitem[Hoiem\ et~al.(2012)Hoiem, Chodpathumwan, and Dai]{Hoiem2012}
-HOIEM D, CHODPATHUMWAN Y, DAI Q.
-\newblock {Diagnosing error in object detectors}\allowbreak[J].
-\newblock Lect. Notes Comput. Sci., 2012, 7574 LNCS\penalty0 (PART 3):
-  340--353.
-
-\bibitem[Hornik\ et~al.(1989)Hornik, Stinchcombe, and White]{Hornik1989}
-HORNIK K, STINCHCOMBE M, WHITE H.
-\newblock {Multilayer feedforward networks are universal
-  approximators}\allowbreak[J].
-\newblock Neural Networks, 1989, 2\penalty0 (5): 359--366.
-
 \bibitem[{Z. Wang, A. C. Bovik, H. R. Sheikh and E. P.
   Simoncelli}(2004)]{Wang2004}
 {Z. Wang, A. C. Bovik, H. R. Sheikh and E. P. Simoncelli}.
@@ -920,21 +982,20 @@ BURGER H~C, SCHULER C~J, HARMELING S.
   and Pattern Recognition.
 \newblock IEEE, 2012: 2392--2399.
 
-\bibitem[DabovK\ et~al.()DabovK, FoiA, KatkovnikV, and
-  and]{DBLP:journals/tip/DabovFKE07}
+\bibitem[DabovK\ et~al.()DabovK, FoiA, KatkovnikV, and and]{Dabov2007}
 DABOVK, FOIA, KATKOVNIKV, et~al.
 \newblock Image denoising by sparse 3-d transform-domain collaborative
   filtering.\allowbreak[J].
 \newblock {\em {IEEE} Trans. Image Processing}, 16(8):2080--2095, 2007.
 
 \bibitem[VincentP\ et~al.()VincentP, LarochelleH, BengioY, and
-  and]{DBLP:conf/icml/VincentLBM08}
+  and]{Vincent2008}
 VINCENTP, LAROCHELLEH, BENGIOY, et~al.
 \newblock Extracting and composing robust features with denoising
   autoencoders.\allowbreak[J].
 \newblock In {\em Proc. Int. Conf. Mach. Learn.}, pages 1096--1103, 2008.
 
-\bibitem[XieJ\ et~al.()XieJ, XuL, and and]{DBLP:conf/nips/XieXC12}
+\bibitem[XieJ\ et~al.()XieJ, XuL, and and]{Xie2012}
 XIEJ, XUL, AND E~C.
 \newblock Image denoising and inpainting with deep neural
   networks.\allowbreak[J].
@@ -1023,7 +1084,7 @@ JOHNSON J, ALAHI A, FEI-FEI L.
   Super-Resolution}\allowbreak[J].
 \newblock arXiv Preprint, 2016.
 
-\bibitem[NohH\ et~al.()NohH, HongS, and and]{DBLP:conf/iccv/NohHH15}
+\bibitem[NohH\ et~al.()NohH, HongS, and and]{NohH2015}
 NOHH, HONGS, AND B~H.
 \newblock Learning deconvolution network for semantic
   segmentation.\allowbreak[J].
@@ -1035,38 +1096,12 @@ HONGS, NOHH, AND B~H.
   segmentation.\allowbreak[J].
 \newblock In {\em Proc. Advances in Neural Inf. Process. Syst.}, 2015.
 
-\bibitem[LongJ\ et~al.()LongJ, ShelhamerE, and and]{DBLP:conf/cvpr/LongSD15}
-LONGJ, SHELHAMERE, AND T~D.
-\newblock Fully convolutional networks for semantic
-  segmentation.\allowbreak[J].
-\newblock In {\em Proc. IEEE Conf. Comp. Vis. Patt. Recogn.}, pages 3431--3440,
-  2015.
-
-\bibitem[DongC\ et~al.()DongC, LoyC, HeK, and
-  and]{DBLP:journals/pami/DongLHT16}
+\bibitem[DongC\ et~al.()DongC, LoyC, HeK, and and]{Dong2016}
 DONGC, LOYC C, HEK, et~al.
 \newblock Image super-resolution using deep convolutional
   networks.\allowbreak[J].
 \newblock {\em {IEEE} Trans. Pattern Anal. Mach. Intell.}, 38(2):295--307,
   2016.
-
-\bibitem[Simonyan\ et~al.(2014{\natexlab{b}})Simonyan and
-  Zisserman]{Simonyan14c}
-SIMONYAN K, ZISSERMAN A.
-\newblock Very deep convolutional networks for large-scale image
-  recognition\allowbreak[J].
-\newblock CoRR, 2014, abs/1409.1556.
-
-\bibitem[Deng\ et~al.(2009)Deng, Dong, Socher, Li, Li, and
-  Li]{Deng2009ImageNet}
-DENG J, DONG W, SOCHER R, et~al.
-\newblock Imagenet: A large-scale hierarchical image
-  database\allowbreak[C]//\allowbreak{}[S.l.: s.n.], 2009: 248--255.
-
-\bibitem[Kingma\ et~al.(2014{\natexlab{a}})Kingma and Ba]{Kingma2014Adam}
-KINGMA D, BA J.
-\newblock Adam: A method for stochastic optimization\allowbreak[J].
-\newblock Eprint Arxiv, 2014.
 
 \bibitem[Bosch\ et~al.(2002)Bosch, Mitchell, Lelieveldt, Nijland, Kamp, Sonka,
   and Reiber]{Bosch2002}

@@ -1,16 +1,18 @@
-\chapter{超声心动图切面的自动识别方法}
+\chapter{特征表示的高层语义应用}
 \label{chap:classification}
 
+\section{超声心动图切面的自动识别方法}
 在心脏病常规临床检查中，二维实时超声心动图常用于评测心脏的结构和功能。临床超声检查通常主要包括三个步骤：探头扫描不同位置，选取标准切面和对标准切面的测量和诊断\citep{Chen2015}。其中，医师总结出来能更好辅助分析心脏功能结 构的特定位置和角度的超声心动图称为标准切面，其正确快 速选取不仅对临床诊断具有至关重要的意义，也为病例研究 提供比较依据。标准切面的自动识别是超声心动图智能分析和测量的基础。与自然图像相比，医学超声成像质量差，存在斑点噪声和伪影；并且各标准切面类内、类间差异大，使得标准切面的识别成为一个非常具有挑战性的问题。
 
 目前的研究主要集中在利用机器学习和图像处理等方法，进行超声心动图的自动识别、检索及切面内组织结构的定位和分割等。针对超声心动图的自动识别，2004年Shahram 等\citep{Ebadollahi2004}首次提出采用马尔科夫随机场，设计通用腔室模板检测 心脏腔室来辅助三类标准切面识别，但需额外信号来指定处 于舒张末期（End–Diastolic，ED）的切面。同样利用处于ED的标准切面，Kevin等\citep{KevinZhou2006}基于多类别提升算法框架，提取哈尔矩形特征训练弱分类器，同样需要检测心脏腔室的空间位置，辅助四类标准切面识别。基于降低特征维度的两层级联方法，把标准切面分类成心尖和胸骨旁两大类，然后进一步区分四类标准切面视频\citep{Otey2006,Roy2006b}。在文献\citepns{Ebadollahi2004}工作基础上整合局部和全局模板特征，利用多类逻辑提升分类算法，并指出能扩展到任意标准切面\citep{Park2007a}。在对心脏的循环跳动的时空信息进行统计分析的基础上，利用主动外观模型对形状和纹理进行建模，统计追踪一个心动周期并投影到运动空间进行分类\citep{Beymer2008}，该方法处理的视频序列。把标准切面视为不同场景，提取低层全局特征来表征不同切面，利用改进核支持向量机进行分类\citep{Wu2014c}。这些方法可以归纳为两个阶段：首先根据先验人为设计特征来表征图像；然后利用机器学习中不同分类方法对特征向量进行建模分析得到分类器。然而受限于‘语义鸿沟’问题，根据特定先验人为设计特征，如大多数方法都针对心动周期的某个特定时刻的切面（如ED），会导致模型泛化性能差。
 
-近来，深度卷积神经网络(Convolutional Neural Network,CNN)在大规模自然图像数据集(如ImageNet\citep{Russakovsky})上，识别性能远超传统方法\citep{Krizhevsky2012}。主要得益于深度学习利用大量标注数据从图像原始像素出发，逐层分级学习中高层的抽象语义特征\citep{Sharif2014}。
+近来，深度卷积神经网络(Convolutional Neural Network,CNN)在大规模自然图像数据集(如ImageNet\citep{Deng2009ImageNet})上，识别性能远超传统方法\citep{Krizhevsky2012}。主要得益于深度学习利用大量标注数据从图像原始像素出发，逐层分级学习中高层的抽象语义特征\citep{Sharif2014}。
 当前实践中由于深度学习需要大量的标注数据，所以仅在少数医学任务中取得有限的成功应用，且对深度模型的鲁棒性和有效性也缺乏详尽分析。Chen等\citep{Chen2015}利用CNN结合领域知识，在胎儿超声心动图标准切面的自动识别问题中取得良好的识别效果，但胎儿跟成人超声心动图差异大，具有很大特殊性。Bar等\citep{Bar2015Chest}利用自然图像训练的模型对胸腔X-射线图像进行特征提取并结合全局特征\citep{Oliva2001}得到最优检测结果，并没有对特定医学数据进行迁移训练，仅是作为特征提取器。Margeta等\citep{Margeta2015}针对心脏核磁共振图像利用微调迁移从自然图像学习的模型，但没对模型有效性进行分析。
 
 目前深度CNN模型的理论分析工作还不是很完善，能自动学习语义特征的工作机理还是个“黑箱”。对于不同的模型的比较除了准确率之外并没有很好的评价方法，优异的泛化能力从何而来仍是个开放问题。一些工作\citep{simonyan14deep,Mahendran2015,Zeiler2014,Zhou2015}通过可视化各层激活值和卷积核来更好理解深度CNN。对在给定数据集上训练得到的深度CNN网络模型，Simonyan等\citep{simonyan14deep}用反卷积来可视化每个神经元的最大激活值。Mahendran等\citep{Mahendran2015}通过对学习到的每层的特征编码进行反编码，建立每层特征编码和原图像的映射关系。Zeiler等\citep{Zeiler2014}试图通过梯度上升方法迭代寻找图像使得最大化激活某个或某些特定的神经元。神经元对图像每个像素的梯度描述了当前像素的怎样改变能影响分类结果。前三个方法均是对已训练的模型进行分析，而类激活映射图（Class Activation Maps,CAM）方法\citep{Zhou2015}用全局平均池化层代替全连接层改进训练过程，分类性能虽略有降低，但能指示出特定类别的显著性判别区域，能很好的解释模型的有效性。
 
-本文提出一种基于深度CNN识别超声心动图的方法（Deep Echocardiogram,Deep-Echo）:1）引入空间金字塔平均池化层代替全连接层，一方面大大减少模型参数，降低过拟合风险；另一方面网络结构变为全卷积网络，使得不用限制输入图像尺寸大小，这对医学超声图像更为重要。2）为验证该算法的鲁棒性和有效性，针对数据集进行详尽实验，研究分析了深度学习方法的高识别率和优异泛化能力的原因。
+本文提出一种基于深度CNN自动识别超声心动图标准切面的方法（Deep Echocardiogram,Deep-Echo）:
+1）引入空间金字塔平均池化层代替全连接层，一方面大大减少模型参数，降低过拟合风险；另一方面网络结构变为全卷积网络，使得不用限制输入图像尺寸大小，这对医学超声图像更为重要。2）为验证该算法的鲁棒性和有效性，针对数据集进行详尽实验，研究分析了深度学习方法的高识别率和优异泛化能力的原因。
  
 \section{Deep-Echo模型}
 
@@ -23,7 +25,7 @@
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[width=0.85\textwidth]{ch03_01}
+\includegraphics[width=0.9\textwidth]{ch03_01}
 \caption{Deep-Echo模型结构示意图}
 \label{fig:ch03_01}
 \end{figure}
@@ -32,13 +34,13 @@
 
 针对深度CNN模型中全连接层的两个缺点：全连接层丢失了空间信息，限制了 CNN 只能接受固定尺度的输入，一般只能通过图像尺度归一化的方法来处理不同尺度的输入图像，且使得模型可视化变得不可解释；全连接层参数拥有大约90\%的模型参数，如AlexNet模型\citep{Krizhevsky2012}和VGG16模型\citep{Chatfield2014}中全连接层参数占全部参数分别为38M/61M和103M/138M，从而导致模型更容易过拟合\citep{Szegedy2015}。
 为解决这两个问题，He等提出空间金字塔池化 (Spatial Pyramid Pooling，SPP)方法\citep{He2015spp}。SPP通过使用多个不同大小的池化操作保证固定的特征向量输出，从而允许 CNN 接受任何尺度的输入，增加了模型的尺度不变性，抑制过拟合。与传统的全连接层不同，对每个特征图一整张图片进行多尺度的空间金字塔均值池化，这样每张特征图都可以得到多个尺度的输出。本文方法跟空间金字塔池化网络类似都是三个尺度的空间金字塔池化（1×1，2×2，4×4），其差异在于后不再接多个全连接层，同时用平均池化代替最大化池化，目的在于方便可视化模型的空间位置信息。
-\subsection{微调迁移学习}
+\section{微调迁移学习}
 
 利用深度学习进行超声心动图的标准切面识别，仍存在针对小数据量直接训练是否会出现过拟合问题；能否跨领域进行迁移学习，即在自然图像数据集上训练得到的模型能否微调应用到跨领域的超声心动图上。文献\citepns{Zhou2015}中指出，用全局平均池化代替全连接层直接随机初始化，从头开始训练模型收敛困难且分类性能下降，故对现有模型进行改造，即针对在自然图像集上预先训练得到的模型如，Alexnet模型等，变换最后的输出层为所述金字塔平均池化结构，调小学习率后在超声心动图标准切面数据上进行微调迁移学习。
 
 训练时，由于超声心动图的特殊性，人工标注费时费力，对数据集进行扩增能降低人工标注的需求。但扩增数据需注意不能打乱标准切面图像内在的局部结构，因此对切面数据只进行水平镜像翻转和旋转。通过引入BN归一化层能减轻对Dropout的依赖，提高泛化能力，并且本文直接去掉全连接层，故并未采用Dropout技术。
 迁移学习时，由于深度模型中低层的卷积核是跟人类视觉的初级细胞很类似，因此是可以直接迁移复用，高层要针对目标学习判别性信息需进行重新学习\citep{Zhou2015}。针对超声心动图的实验支持这样的结论，不同模型的分类准确率都很高，具体实验见后文实验部分。但对于计算机医学辅助诊断而言，模型怎样决策判断比分类准确率更重要。即需解释模型为什么有效和优异的泛化能力从何而来。
-\subsection{类别显著激活映射图}
+\section{类别显著激活映射图}
 
 前文所提模型能高效提取超声心动图标准切面的特征，对超声心动图的单扇形和双扇形标准切面都能很好的识别，甚至对互联网上随意选取的标准切面也能识别。但对模型的有效性和解释性缺乏有力分析，使得对模型决策判断的可信性产生怀疑。
 针对超声心动图，采用\citepns{Zhou2015}提出可视化分析的方法，将其和空间金字塔平均池化结合。对给定图像，$f_{j}(x,y)$ 表示卷积层(x,y)位置上第j个神经元的激活值，对第j神经元的平均池化操作结果对给定类别k的得分函数S：
@@ -59,7 +61,7 @@
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[width=0.85\textwidth,height=0.4\textheight]{ch03_02}
+\includegraphics[width=0.9\textwidth,height=0.4\textheight]{ch03_02}
 \caption{七类标准切面超声心动图及数量分布}
 \label{fig:ch03_02}
 \end{figure}
@@ -74,7 +76,7 @@
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[width=0.85\textwidth]{ch03_03}
+\includegraphics[width=0.9\textwidth]{ch03_03}
 \caption{Deep-Echo模型分类的混淆矩阵}
 \label{fig:ch03_03}
 \end{figure} 
@@ -82,7 +84,7 @@
     \centering
     %trim option's parameter order: left bottom right top
     %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-    \includegraphics[width=0.85\textwidth]{ch03_04}
+    \includegraphics[height=20mm,width=0.9\textwidth]{ch03_04}
     \caption{不同数据量的平均分类精度}
     \label{fig:ch03_04}
     \end{figure} 
@@ -119,7 +121,7 @@
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[scale=0.6,trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[width=0.85\textwidth,height=0.4\textheight]{ch03_05}
+\includegraphics[height=60mm,width=0.9\textwidth]{ch03_05}
 \caption{各类切面的原图和显著性热力图}
 \label{fig:ch03_05}
 \end{figure}  
@@ -128,7 +130,7 @@
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[scale=0.6,trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[width=0.85\textwidth,height=0.15\textheight]{ch03_06}
+\includegraphics[width=0.9\textwidth,height=0.15\textheight]{ch03_06}
 \caption{深度模型泛化性能可视化分析}
 \label{fig:ch03_06}
 \end{figure}    

@@ -1,6 +1,7 @@
-\chapter{空间金字塔分解的深度可视化方法}
+\chapter{特征表示的深度可视化}
 \label{chap:visualization}
 
+\section{空间金字塔分解的深度可视化方法}
 以深度卷积神经网络（Convolutional Neural Network，CNN）为代表的深度学习对计算机视觉和机器学习领域产生了深远影响。但是完全理解深度学习模型的内在工作原理，设计高性能的深度网络结构还是很困难的，一直以来人们普遍将其内部工作原理看成一个“黑箱”，这是由于深度CNN存在海量参数，多次迭代更新生成输入输出之间相当不连续和非线性的映射函数；以及对参数的初始状态敏感，存在很多局部最优点。探究CNN的运行机制，核心在于它究竟自动提取什么样的特征，经过卷积层、池化层，特征都是分布式表达的，每个特征反映在原图上都会有重叠，故希望建立特征图与原图像之间的联系，即深度可视化。该技术试图寻找深度模型所提取各层特征较好的定性解释，并在设计开发新网络结构方面扮演重要角色。
 
 
@@ -79,7 +80,7 @@ Dosovitskiy等\citep{Brox}提出通过学习‘上’卷积网络来重建CNN各
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[width=0.85\textwidth]{ch04_01}
+\includegraphics[width=0.9\textwidth]{ch04_01}
 \caption{高斯和拉普拉斯金字塔}
 \label{fig:ch04_01}
 \end{figure}
@@ -95,7 +96,7 @@ Dosovitskiy等\citep{Brox}提出通过学习‘上’卷积网络来重建CNN各
 
 \subsection{梯度归一化}
   
-	基于梯度更新的可视化方法，由于原输入空间中高低频分量混杂在一起，对原输入图像相应的更新梯度进行归一化操作能得到较好可视化效果，即对输入图像每次迭代更新的梯度，则提出梯度归一化操作：   
+基于梯度更新的可视化方法，由于原输入空间中高低频分量混杂在一起，对原输入图像相应的更新梯度进行归一化操作能得到较好可视化效果，即对输入图像每次迭代更新的梯度，则提出梯度归一化操作：   
 \begin{equation} \label{eq:ch04_09}
        g \rightarrow \frac{g}{g.std()+\delta}
 \end{equation} 
@@ -125,17 +126,15 @@ Dosovitskiy等\citep{Brox}提出通过学习‘上’卷积网络来重建CNN各
 基于梯度更新的可视化方法主要用于激活最大化和特征重建，但文献\citepns{He2016}指出用随机未训练的CNN模型也能较好重建原图像，表明特征编码重建不能很好解释训练得到CNN模型的内在工作机理。故本文实验主要关注在对ImageNet公开数据集上预先训练得到的分类模型进行激活最大化可视化实验。
 
 \subsubsection{不同深度模型的类别可视化} 
-\begin{figure}[!htbp]
-\centering
-%trim option's parameter order: left bottom right top
-\includegraphics[trim = 0mm 35mm 00mm 35mm, clip, width=0.85\textwidth]{ch04_02}
-%\includegraphics[width=0.85\textwidth]{ch04_02}
-\caption{不同模型类别可视化实验结果}
-\label{fig:ch04_02}
-\end{figure}
-
 实验选取的深度模型来自于开源社区的Caffe model zoo，不同的CNN模型如：AlexNet模型\citep{Krizhevsky2012}，Vgg-19模型\citep{Simonyan2014a}，Google-CAM模型\citep{Zhou2015}，GoogleNet模型\citep{Szegedy2015}，ResNet模型\citep{he15}，其分类识别性能依次从低到高，模型的复杂程度依次递增。本文实验默认采用提出的梯度归一化，并引入多分辨率、随机扰动和剪切等小技巧作为通用设置，提高可视化效果。
-
+\begin{figure}[!htbp]
+      \centering
+      %trim option's parameter order: left bottom right top
+      \includegraphics[trim = 0mm 25mm 00mm 25mm, clip, width=0.9\textwidth]{ch04_02}
+      %\includegraphics[width=0.9\textwidth]{ch04_02}
+      \caption{不同模型类别可视化实验结果}
+      \label{fig:ch04_02}
+      \end{figure}
 
 为比较不同深度CNN模型学习相同类别时特征图的差异，根据式\ref{eq:ch04_01}，给定高斯噪声生成随机图像作为输入，指定可视化物体类别向量（见图\ref{fig:ch04_02}所示，类别为所有类别中的第13类布谷鸟），施加前文提出不同正则化项的组合：p范数、高斯模糊和金字塔分解正则化。
 
@@ -149,7 +148,7 @@ Dosovitskiy等\citep{Brox}提出通过学习‘上’卷积网络来重建CNN各
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[width=0.85\textwidth,height=0.4\textheight]{ch04_03}
+\includegraphics[width=0.9\textwidth,height=60mm]{ch04_03}
 \caption{不同正则化方法的可视化效果}
 \label{fig:ch04_03}
 \end{figure}
@@ -163,7 +162,7 @@ Dosovitskiy等\citep{Brox}提出通过学习‘上’卷积网络来重建CNN各
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[width=0.85\textwidth,,height=0.4\textheight]{ch04_04}
+\includegraphics[width=0.9\textwidth,height=55mm]{ch04_04}
 \caption{金字塔分解正则化可视化效果}
 \label{fig:ch04_04}
 \end{figure} 
@@ -175,7 +174,7 @@ Dosovitskiy等\citep{Brox}提出通过学习‘上’卷积网络来重建CNN各
 \centering
 %trim option's parameter order: left bottom right top
 %\includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{ch03_02}
-\includegraphics[width=0.85\textwidth,,height=0.2\textheight]{ch04_05}
+\includegraphics[width=0.9\textwidth,,height=30mm]{ch04_05}
 \caption{引入类别激活图的可视化}
 \label{fig:ch04_05}
 \end{figure}  
