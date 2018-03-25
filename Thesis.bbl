@@ -1,4 +1,4 @@
-\begin{thebibliography}{177}
+\begin{thebibliography}{181}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{#1}
 \providecommand{\href}[2]{\url{#2}}
@@ -540,11 +540,6 @@ VINCENT P, LAROCHELLE H, LAJOIE I, et~al.
 \newblock Journal of Machine Learning Research, 2010, 11\penalty0 (12):
   3371--3408.
 
-\bibitem[Hinton(2009)]{Hinton2009Deep}
-HINTON G~E.
-\newblock Deep belief networks\allowbreak[J].
-\newblock Scholarpedia, 2009, 4\penalty0 (6): 5947.
-
 \bibitem[Kingma\ et~al.(2013)Kingma and Welling]{Kingma2013Auto}
 KINGMA D~P, WELLING M.
 \newblock Auto-encoding variational bayes\allowbreak[J].
@@ -556,6 +551,11 @@ KINGMA D~P, WELLING M.
 GOODFELLOW I~J, POUGET-ABADIE J, MIRZA M, et~al.
 \newblock Generative adversarial nets\allowbreak[J].
 \newblock Advances in Neural Information Processing Systems, 2014: 2672--2680.
+
+\bibitem[Hinton(2009)]{Hinton2009Deep}
+HINTON G~E.
+\newblock Deep belief networks\allowbreak[J].
+\newblock Scholarpedia, 2009, 4\penalty0 (6): 5947.
 
 \bibitem[Maas\ et~al.(2013)Maas, Hannun, and Ng]{Maas2013}
 MAAS A~L, HANNUN A~Y, NG A~Y.
@@ -724,6 +724,12 @@ CHATFIELD K, SIMONYAN K, VEDALDI A, et~al.
   Vision Conference 2014.
 \newblock British Machine Vision Association, 2014: 6.1--6.12.
 
+\bibitem[{陶攀, 付忠良, 朱锴}王莉莉(2017)]{tao2017}
+{陶攀, 付忠良, 朱锴}王莉莉.
+\newblock
+  基于深度学习的超声心动图切面识别方法\allowbreak[J/OL].
+\newblock 计算机应用, 2017, 37\penalty0 (5): 1434--1438.
+
 \bibitem[Erhan\ et~al.(2009)Erhan, Bengio, Courville, and Vincent]{Erhan2009}
 ERHAN D, BENGIO Y, COURVILLE A, et~al.
 \newblock {Visualizing higher-layer features of a deep
@@ -856,6 +862,11 @@ HE K, WANG Y, HOPCROFT J.
   Syst. 28.
 \newblock Barcelona,Spain, 2016{\natexlab{b}}: 1--8.
 
+\bibitem[{陶攀, 付忠良}朱锴(2017)]{tao2017ha}
+{陶攀, 付忠良}朱锴.
+\newblock 空间金字塔分解的深度可视化方法\allowbreak[J].
+\newblock 哈尔滨工业大学学报, 2017, 49\penalty0 (11): 68--73.
+
 \bibitem[Cheng\ et~al.(2016)Cheng, Ni, Chou, Qin, Tiu, Chang, Huang, Shen, and
   Chen]{Cheng2016a}
 CHENG J~Z, NI D, CHOU Y~H, et~al.
@@ -953,6 +964,13 @@ ANDREOPOULOS A, TSOTSOS J~K.
 \newblock {Efficient and generalizable statistical models of shape and
   appearance for analysis of cardiac MRI}\allowbreak[J].
 \newblock Medical Image Analysis, 2008, 12\penalty0 (3): 335--357.
+
+\bibitem[陶攀\ 等(2018{\natexlab{a}})陶攀, 付忠良, 朱锴, and
+  王莉莉]{tao2018}
+陶攀, 付忠良, 朱锴, 等.
+\newblock
+  基于深度学习的医学计算机辅助检测方法研究\allowbreak[J].
+\newblock 生物医学工程学杂志, 2018, 6\penalty0 (2): 12--19.
 
 \bibitem[{Z. Wang, A. C. Bovik, H. R. Sheikh and E. P.
   Simoncelli}(2004)]{Wang2004}
@@ -1237,5 +1255,11 @@ XIONG X, {De la Torre} F.
   Alignment}\allowbreak[C/OL]//\allowbreak{}2013 IEEE Conference on Computer
   Vision and Pattern Recognition.
 \newblock IEEE, 2013: 532--539.
+
+\bibitem[陶攀\ 等(2018{\natexlab{b}})陶攀, 付忠良, and 朱锴]{Pan2018}
+陶攀, 付忠良, 朱锴.
+\newblock
+  基于沙漏卷积网络的多尺度形状模型分割方法\allowbreak[J].
+\newblock 工程科学技术学报, 2018: 1--9.
 
 \end{thebibliography}
